@@ -5,8 +5,8 @@ namespace Raspored.Models.DTOs
 {
     public class PersonalSchedule
     {
-        public string TeamName { get; set; }
         public int TeamMemberId { get; set; }
+        public string TeamName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string TeamMemberRoleName { get; set; }

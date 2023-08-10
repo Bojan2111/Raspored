@@ -19,7 +19,7 @@ namespace Raspored.Controllers
         [HttpGet("api/personal-schedule/{teamMemberId}")]
         public IActionResult GetPersonalSchedule(int teamMemberId)
         {
-            PersonalSchedule personalSchedule = _scheduleRepository.GetById(teamMemberId);
+            PersonalSchedule personalSchedule = _scheduleRepository.GetPersonalSchedule(teamMemberId);
             return Ok(personalSchedule);
         }
     }

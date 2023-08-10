@@ -42,7 +42,6 @@ namespace Raspored.Controllers
                 LicenseNumber = model.LicenseNumber,
                 ContractTypeId = model.ContractTypeId,
                 PositionId = model.PositionId
-
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);

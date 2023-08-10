@@ -5,10 +5,10 @@ namespace Raspored.Interfaces
 {
     public interface IPersonalScheduleRepository
     {
-        IQueryable<PersonalSchedule> GetAll();
-        PersonalSchedule GetById(int teamMemberId);
-        void Add(PersonalSchedule personalSchedule);
-        void Update(PersonalSchedule personalSchedule);
-        void Delete(PersonalSchedule personalSchedule);
+        IQueryable<PersonalSchedule> GetAllPersonalSchedules();
+        PersonalSchedule GetPersonalSchedule(int teamMemberId);
+        void AddPersonalSchedule(PersonalSchedule personalSchedule);
+        void UpdatePersonalSchedule(PersonalSchedule personalSchedule);
+        void DeletePersonalSchedule(PersonalSchedule personalSchedule);
     }
 }

@@ -11,6 +11,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Raspored.Interfaces;
+using Raspored.Models;
+using Raspored.Models.DTOs;
+using Raspored.Models.Login;
+using Raspored.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,57 +37,55 @@ namespace Raspored
         public void ConfigureServices(IServiceCollection services)
         {
             //// For Entity Framework  - uncomment when AppDbContext class is created
-            //services.AddDbContext<AppDbContext>(options =>
-            //        options.UseSqlServer(ConfigurationExtensions.GetConnectionString(Configuration, "AppConnectionString")));
+            services.AddDbContext<AppDbContext>(options =>
+                    options.UseSqlServer(ConfigurationExtensions.GetConnectionString(Configuration, "AppConnectionString")));
 
-            //// For Identity  
-            //services.AddIdentity<ApplicationUser, IdentityRole>()
-            //    .AddEntityFrameworkStores<AppDbContext>()
-            //    .AddDefaultTokenProviders();
+            // For Identity  
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
 
-            //// Adding Authentication  
-            //services.AddAuthentication(options =>
-            //{
-            //    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            //})
+            // Adding Authentication  
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
 
-            //// Adding Jwt Bearer  
-            //.AddJwtBearer(options =>
-            //{
-            //    options.SaveToken = true;
-            //    options.RequireHttpsMetadata = false;
-            //    options.TokenValidationParameters = new TokenValidationParameters()
-            //    {
-            //        ValidateIssuer = true,
-            //        ValidateAudience = true,
-            //        ValidAudience = Configuration["Jwt:Audience"],
-            //        ValidIssuer = Configuration["Jwt:Issuer"],
-            //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
-            //    };
-            //});
+            // Adding Jwt Bearer  
+            .AddJwtBearer(options =>
+            {
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidAudience = Configuration["Jwt:Audience"],
+                    ValidIssuer = Configuration["Jwt:Issuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                };
+            });
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Raspored", Version = "v1" });
             });
 
-            //services.AddCors(options =>
-            //{
-            //    options.AddDefaultPolicy(
-            //        builder =>
-            //        {
-            //            builder.WithOrigins("*").AllowAnyHeader().AllowAnyMethod();
-            //        });
-            //});
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.WithOrigins("*").AllowAnyHeader().AllowAnyMethod();
+                    });
+            });
 
-            //services.AddAutoMapper(typeof(KartaProfile));
-            //services.AddAutoMapper(typeof(ProjekcijaProfile));
+            services.AddAutoMapper(typeof(ShiftProfile));
+            services.AddAutoMapper(typeof(PersonalScheduleProfile));
 
-            //services.AddScoped<IFilmRepository, FilmRepository>();
-            //services.AddScoped<IKartaRepository, KartaRepository>();
-            //services.AddScoped<IProjekcijaRepository, ProjekcijaRepository>();
+            services.AddScoped<IPersonalScheduleRepository, PersonalScheduleRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

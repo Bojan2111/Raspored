@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Reflection.Emit;
-using Raspored.Models.DTOs;
 
 namespace Raspored.Models
 {
@@ -15,7 +13,6 @@ namespace Raspored.Models
         public DbSet<TeamMemberRole> TeamMemberRoles { get; set; }
         public DbSet<TeamMember> TeamMembers { get; set; }
         public DbSet<Team> Teams { get; set; }
-        public DbSet<PersonalSchedule> PersonalSchedules { get; set; }
 
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
@@ -117,16 +114,26 @@ namespace Raspored.Models
             {
                 UserName = "korisnik1",
                 Email = "korisnik1@test.com",
-                YearOfEmployment = 2020,
-                EmailConfirmed = true
+                FirstName = "korisnik",
+                LastName = "prvi",
+                DateOfBirth = new DateTime(1995, 8, 15),
+                YearOfEmployment = 2022,
+                LicenseNumber = "OVO2156312341",
+                ContractTypeId = 2,
+                PositionId = 1,
             };
 
             var user2 = new ApplicationUser
             {
                 UserName = "korisnik2",
                 Email = "korisnik2@test.com",
-                YearOfEmployment = 2023,
-                EmailConfirmed = true
+                FirstName = "korisnik",
+                LastName = "drugi",
+                DateOfBirth = new DateTime(1985, 6, 25),
+                YearOfEmployment = 2022,
+                LicenseNumber = "OVO2131356341",
+                ContractTypeId = 2,
+                PositionId = 1,
             };
 
             var passwordHasher = new PasswordHasher<ApplicationUser>();
@@ -134,11 +141,11 @@ namespace Raspored.Models
             user1.PasswordHash = passwordHasher.HashPassword(user1, "Asdf-1234");
             user2.PasswordHash = passwordHasher.HashPassword(user2, "Zxc-987");
 
-            //builder.Entity<ApplicationUser>(entity =>
-            //{
-            //    entity.Property(u => u.ProfileImage).HasMaxLength(255);
-            //    entity.HasData(adminUser, user1, user2);
-            //});
+            builder.Entity<ApplicationUser>(entity =>
+            {
+                //entity.Property(u => u.ProfileImage).HasMaxLength(255);
+                entity.HasData(adminUser, user1, user2);
+            });
 
             base.OnModelCreating(builder);
         }

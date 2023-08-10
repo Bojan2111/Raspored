@@ -17,22 +17,22 @@ namespace Raspored.Repositories
             _mapper = mapper;
         }
 
-        public void Add(PersonalSchedule personalSchedule)
+        public void AddPersonalSchedule(PersonalSchedule personalSchedule)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Delete(PersonalSchedule personalSchedule)
+        public void DeletePersonalSchedule(PersonalSchedule personalSchedule)
         {
             throw new System.NotImplementedException();
         }
 
-        public IQueryable<PersonalSchedule> GetAll()
+        public IQueryable<PersonalSchedule> GetAllPersonalSchedules()
         {
             throw new System.NotImplementedException();
         }
 
-        public PersonalSchedule GetById(int teamMemberId)
+        public PersonalSchedule GetPersonalSchedule(int teamMemberId)
         {
             // Fetch data from the database and map to PersonalSchedule
             Team team = new Team();// Get team from the database based on teamMemberId
@@ -48,7 +48,7 @@ namespace Raspored.Repositories
             return personalSchedule;
         }
 
-        public void Update(PersonalSchedule projekcija)
+        public void UpdatePersonalSchedule(PersonalSchedule projekcija)
         {
             throw new System.NotImplementedException();
         }
