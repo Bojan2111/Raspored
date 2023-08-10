@@ -33,15 +33,22 @@ namespace Raspored.Controllers
         {
             var user = new ApplicationUser
             {
-                UserName = model.Username,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                DateOfBirth = model.DateOfBirth,
+                UserName = model.UserName,
                 Email = model.Email,
-                DateOfEmployment = DateTime.Now
+                YearOfEmployment = model.YearOfEmployment,
+                LicenseNumber = model.LicenseNumber,
+                ContractTypeId = model.ContractTypeId,
+                PositionId = model.PositionId
+
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, "customer");
+                await _userManager.AddToRoleAsync(user, model.Role);
 
                 return Ok();
             }
