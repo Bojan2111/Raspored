@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Raspored.Interfaces;
 using Raspored.Models.DTOs;
 using Raspored.Repositories;
 
@@ -9,14 +11,15 @@ namespace Raspored.Controllers
     [ApiController]
     public class PersonalScheduleController : ControllerBase
     {
-        private readonly PersonalScheduleRepository _scheduleRepository;
+        private readonly IPersonalScheduleRepository _scheduleRepository;
 
-        public PersonalScheduleController(PersonalScheduleRepository scheduleRepository)
+        public PersonalScheduleController(IPersonalScheduleRepository scheduleRepository)
         {
             _scheduleRepository = scheduleRepository;
         }
 
-        [HttpGet("api/personal-schedule/{teamMemberId}")]
+        [AllowAnonymous]
+        [HttpGet("/api/personal-schedule/{teamMemberId}")]
         public IActionResult GetPersonalSchedule(int teamMemberId)
         {
             PersonalSchedule personalSchedule = _scheduleRepository.GetPersonalSchedule(teamMemberId);

@@ -10,8 +10,8 @@ using Raspored.Models;
 namespace Raspored.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230810160154_Initial migration")]
-    partial class Initialmigration
+    [Migration("20230811165005_initial migration")]
+    partial class initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -250,9 +250,9 @@ namespace Raspored.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "bbf5ab22-cc10-49b8-9b3b-cb76ee0ad2d3",
+                            Id = "2dc07fbe-32a3-4b66-84f2-e15a40eb325b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5910357d-378c-4da4-8c36-d0f617b0416c",
+                            ConcurrencyStamp = "e45d6649-07ce-41f4-8379-904f2527db0e",
                             ContractTypeId = 2,
                             DateOfBirth = new DateTime(1985, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Deleted = false,
@@ -262,20 +262,20 @@ namespace Raspored.Migrations
                             LastName = "admin",
                             LicenseNumber = "OVO2131312341",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEJ8n1zisiDNtDgQ99W0rIjCICCnkTBM6xEMdEZoQcQGwpxpUjh8pciCGuSsE/7Bu+Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKKe+SgAMHF4Qs/Pe70LnRDfkL5lm4nSRBtVV8xwASWIKfjHl3wolOCNvoSsZ6Jq1Q==",
                             PhoneNumberConfirmed = false,
                             PositionId = 1,
                             Rating = 0.0,
-                            SecurityStamp = "c126269a-7480-4a01-8107-4305c907ab6c",
+                            SecurityStamp = "2516f7dc-1138-4e2e-9f9c-361bb17906a9",
                             TwoFactorEnabled = false,
                             UserName = "admin",
                             YearOfEmployment = 2022
                         },
                         new
                         {
-                            Id = "7bc199f6-32ce-4070-a161-efa08fbcb408",
+                            Id = "58a526d6-fd71-4af7-90d1-a7bb6d6cff41",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c79a9a2e-c133-4fc1-a14a-89ad6589fb30",
+                            ConcurrencyStamp = "40b670b8-74e4-474d-a754-4c1e56a8f829",
                             ContractTypeId = 2,
                             DateOfBirth = new DateTime(1995, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Deleted = false,
@@ -285,20 +285,20 @@ namespace Raspored.Migrations
                             LastName = "prvi",
                             LicenseNumber = "OVO2156312341",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEATB13CjIa9m822mV1fzziMPS3y2b6wD8k4Pt/x+kKKFdO+k4i3QXC3ksIeipaKD2Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELWgSYBJhkNPl7eGlPPVkm4LsYy4m2uO3q5l1cvWfHaIoJmtBXz3VamAvrDzx9vpcw==",
                             PhoneNumberConfirmed = false,
                             PositionId = 1,
                             Rating = 0.0,
-                            SecurityStamp = "1d6e52ec-89df-4c17-a98b-72fca4c9211f",
+                            SecurityStamp = "3db8406e-96ba-4056-82ff-20a5888a4ef0",
                             TwoFactorEnabled = false,
                             UserName = "korisnik1",
                             YearOfEmployment = 2022
                         },
                         new
                         {
-                            Id = "367c1b78-d506-4b85-9a75-e367c40e72be",
+                            Id = "04fc4544-ff32-451c-8fbe-c9c47a29adba",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bf54a10d-5c5a-4f69-bc19-98b51bff1e0d",
+                            ConcurrencyStamp = "0414e394-ad4f-4021-aec9-52dab8c56ca0",
                             ContractTypeId = 2,
                             DateOfBirth = new DateTime(1985, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Deleted = false,
@@ -308,11 +308,11 @@ namespace Raspored.Migrations
                             LastName = "drugi",
                             LicenseNumber = "OVO2131356341",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEGryOJxxusZF6Pr8jsTM4hnGc2vHeHnMgQ8RB+QSn86GVSoErPP6fguQ608qjnFa5A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEE8bfLLdzLVRWTppQg2WLSYI2GfDwqoxjJYZhPr6MvIeFkkHvR7dCCAMo/s67Ip0qQ==",
                             PhoneNumberConfirmed = false,
                             PositionId = 1,
                             Rating = 0.0,
-                            SecurityStamp = "852e53b1-6025-4e88-8f56-a104e68465fb",
+                            SecurityStamp = "fe1a008e-711b-4046-9bab-1bf706186660",
                             TwoFactorEnabled = false,
                             UserName = "korisnik2",
                             YearOfEmployment = 2022
@@ -483,20 +483,22 @@ namespace Raspored.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("TeamId")
+                        .HasColumnType("int");
+
                     b.Property<int>("TeamMemberRoleId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId1")
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("TeamId");
+
                     b.HasIndex("TeamMemberRoleId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("TeamMembers");
                 });
@@ -606,6 +608,12 @@ namespace Raspored.Migrations
 
             modelBuilder.Entity("Raspored.Models.TeamMember", b =>
                 {
+                    b.HasOne("Raspored.Models.Team", "Team")
+                        .WithMany()
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Raspored.Models.TeamMemberRole", "TeamMemberRole")
                         .WithMany()
                         .HasForeignKey("TeamMemberRoleId")
@@ -614,7 +622,9 @@ namespace Raspored.Migrations
 
                     b.HasOne("Raspored.Models.Login.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Team");
 
                     b.Navigation("TeamMemberRole");
 

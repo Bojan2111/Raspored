@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Routing.Constraints;
 using Raspored.Models.Login;
+using System;
 using System.Collections.Generic;
 
 namespace Raspored.Models.DTOs
@@ -22,18 +24,21 @@ namespace Raspored.Models.DTOs
                 .ForMember(dest => dest.TeamMemberRoleName, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.TeamMemberRoleDescription, opt => opt.MapFrom(src => src.Description));
 
-            CreateMap<Shift, ShiftDTO>()
-                .Include<Shift, ShiftDTO>();
-
-            CreateMap<Shift, PersonalSchedule>()
-                .ForMember(dest => dest.Shifts, opt => opt.MapFrom(src => src));
-
             //CreateMap<Shift, ShiftDTO>()
-            //    .ForMember(dest => dest.ShiftTypeName, opt => opt.MapFrom(src => src.ShiftType.Name))
-            //    .ForMember(dest => dest.ShiftTypeDescription, opt => opt.MapFrom(src => src.ShiftType.Description));
+            //    .Include<Shift, ShiftDTO>();
 
-            //CreateMap<ShiftDTO, PersonalSchedule>()
-            //    .ForMember(dest => dest.Shifts, opt => opt.MapFrom(src => new List<ShiftDTO> { src }));
+            //CreateMap<Shift, PersonalSchedule>()
+            //    .ForMember(dest => dest.Shifts, opt => opt.MapFrom(src => src))
+            //    .ForMember(dest => dest.MonthName, opt => opt.MapFrom(src => src.Date.ToString("MMMM").ToUpper()));
+
+            CreateMap<Shift, ShiftDTO>()
+                .ForMember(dest => dest.ShiftDate, opt => opt.MapFrom(src => src.Date))
+                .ForMember(dest => dest.TeamMemberId, opt => opt.MapFrom(src => src.TeamMemberId))
+                .ForMember(dest => dest.ShiftTypeName, opt => opt.MapFrom(src => src.ShiftType.Name))
+                .ForMember(dest => dest.ShiftTypeDescription, opt => opt.MapFrom(src => src.ShiftType.Description));
+
+            CreateMap<ShiftDTO, PersonalSchedule>()
+                .ForMember(dest => dest.Shifts, opt => opt.MapFrom(src => new List<ShiftDTO> { src }));
         }
     }
 }

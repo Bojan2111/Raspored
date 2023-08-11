@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Raspored.Migrations
 {
-    public partial class Initialmigration : Migration
+    public partial class initialmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -246,16 +246,16 @@ namespace Raspored.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    TeamId = table.Column<int>(type: "int", nullable: false),
                     TeamMemberRoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TeamMembers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TeamMembers_AspNetUsers_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_TeamMembers_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -263,6 +263,12 @@ namespace Raspored.Migrations
                         name: "FK_TeamMembers_TeamMemberRoles_TeamMemberRoleId",
                         column: x => x.TeamMemberRoleId,
                         principalTable: "TeamMemberRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TeamMembers_Teams_TeamId",
+                        column: x => x.TeamId,
+                        principalTable: "Teams",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -324,17 +330,17 @@ namespace Raspored.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "ContractTypeId", "DateOfBirth", "Deleted", "Email", "EmailConfirmed", "FirstName", "LastName", "LicenseNumber", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PositionId", "Rating", "SecurityStamp", "TwoFactorEnabled", "UserName", "YearOfEmployment" },
-                values: new object[] { "bbf5ab22-cc10-49b8-9b3b-cb76ee0ad2d3", 0, "5910357d-378c-4da4-8c36-d0f617b0416c", 2, new DateTime(1985, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "admin@example.com", true, "admin", "admin", "OVO2131312341", false, null, null, null, "AQAAAAEAACcQAAAAEJ8n1zisiDNtDgQ99W0rIjCICCnkTBM6xEMdEZoQcQGwpxpUjh8pciCGuSsE/7Bu+Q==", null, false, 1, 0.0, "c126269a-7480-4a01-8107-4305c907ab6c", false, "admin", 2022 });
+                values: new object[] { "2dc07fbe-32a3-4b66-84f2-e15a40eb325b", 0, "e45d6649-07ce-41f4-8379-904f2527db0e", 2, new DateTime(1985, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "admin@example.com", true, "admin", "admin", "OVO2131312341", false, null, null, null, "AQAAAAEAACcQAAAAEKKe+SgAMHF4Qs/Pe70LnRDfkL5lm4nSRBtVV8xwASWIKfjHl3wolOCNvoSsZ6Jq1Q==", null, false, 1, 0.0, "2516f7dc-1138-4e2e-9f9c-361bb17906a9", false, "admin", 2022 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "ContractTypeId", "DateOfBirth", "Deleted", "Email", "EmailConfirmed", "FirstName", "LastName", "LicenseNumber", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PositionId", "Rating", "SecurityStamp", "TwoFactorEnabled", "UserName", "YearOfEmployment" },
-                values: new object[] { "7bc199f6-32ce-4070-a161-efa08fbcb408", 0, "c79a9a2e-c133-4fc1-a14a-89ad6589fb30", 2, new DateTime(1995, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "korisnik1@test.com", false, "korisnik", "prvi", "OVO2156312341", false, null, null, null, "AQAAAAEAACcQAAAAEATB13CjIa9m822mV1fzziMPS3y2b6wD8k4Pt/x+kKKFdO+k4i3QXC3ksIeipaKD2Q==", null, false, 1, 0.0, "1d6e52ec-89df-4c17-a98b-72fca4c9211f", false, "korisnik1", 2022 });
+                values: new object[] { "58a526d6-fd71-4af7-90d1-a7bb6d6cff41", 0, "40b670b8-74e4-474d-a754-4c1e56a8f829", 2, new DateTime(1995, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "korisnik1@test.com", false, "korisnik", "prvi", "OVO2156312341", false, null, null, null, "AQAAAAEAACcQAAAAELWgSYBJhkNPl7eGlPPVkm4LsYy4m2uO3q5l1cvWfHaIoJmtBXz3VamAvrDzx9vpcw==", null, false, 1, 0.0, "3db8406e-96ba-4056-82ff-20a5888a4ef0", false, "korisnik1", 2022 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "ContractTypeId", "DateOfBirth", "Deleted", "Email", "EmailConfirmed", "FirstName", "LastName", "LicenseNumber", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PositionId", "Rating", "SecurityStamp", "TwoFactorEnabled", "UserName", "YearOfEmployment" },
-                values: new object[] { "367c1b78-d506-4b85-9a75-e367c40e72be", 0, "bf54a10d-5c5a-4f69-bc19-98b51bff1e0d", 2, new DateTime(1985, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "korisnik2@test.com", false, "korisnik", "drugi", "OVO2131356341", false, null, null, null, "AQAAAAEAACcQAAAAEGryOJxxusZF6Pr8jsTM4hnGc2vHeHnMgQ8RB+QSn86GVSoErPP6fguQ608qjnFa5A==", null, false, 1, 0.0, "852e53b1-6025-4e88-8f56-a104e68465fb", false, "korisnik2", 2022 });
+                values: new object[] { "04fc4544-ff32-451c-8fbe-c9c47a29adba", 0, "0414e394-ad4f-4021-aec9-52dab8c56ca0", 2, new DateTime(1985, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "korisnik2@test.com", false, "korisnik", "drugi", "OVO2131356341", false, null, null, null, "AQAAAAEAACcQAAAAEE8bfLLdzLVRWTppQg2WLSYI2GfDwqoxjJYZhPr6MvIeFkkHvR7dCCAMo/s67Ip0qQ==", null, false, 1, 0.0, "fe1a008e-711b-4046-9bab-1bf706186660", false, "korisnik2", 2022 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -396,14 +402,19 @@ namespace Raspored.Migrations
                 column: "TeamMemberId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TeamMembers_TeamId",
+                table: "TeamMembers",
+                column: "TeamId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TeamMembers_TeamMemberRoleId",
                 table: "TeamMembers",
                 column: "TeamMemberRoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TeamMembers_UserId1",
+                name: "IX_TeamMembers_UserId",
                 table: "TeamMembers",
-                column: "UserId1");
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -427,9 +438,6 @@ namespace Raspored.Migrations
                 name: "Shifts");
 
             migrationBuilder.DropTable(
-                name: "Teams");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -443,6 +451,9 @@ namespace Raspored.Migrations
 
             migrationBuilder.DropTable(
                 name: "TeamMemberRoles");
+
+            migrationBuilder.DropTable(
+                name: "Teams");
 
             migrationBuilder.DropTable(
                 name: "ContractType");
