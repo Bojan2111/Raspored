@@ -93,7 +93,7 @@ namespace Raspored
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public async void Configure(IApplicationBuilder app, IWebHostEnvironment env, RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -106,6 +106,8 @@ namespace Raspored
 
             app.UseRouting();
             app.UseCors();
+            
+            // Uncomment it once and run the project after adding migration and updating database for the first time. It will add roles.
             //CreateRoles(roleManager).GetAwaiter().GetResult();
 
             app.UseAuthentication();
@@ -116,18 +118,19 @@ namespace Raspored
                 endpoints.MapControllers();
             });
         }
-        private async Task CreateRoles(RoleManager<IdentityRole> roleManager)
-        {
-            var roles = new List<string> { "Admin", "Korisnik" };
+        // Uncomment after initial migration and run the project to add roles to database.
+        //private async Task CreateRoles(RoleManager<IdentityRole> roleManager)
+        //{
+        //    var roles = new List<string> { "admin", "zaposleni" };
 
-            foreach (var role in roles)
-            {
-                var roleExists = await roleManager.RoleExistsAsync(role);
-                if (!roleExists)
-                {
-                    await roleManager.CreateAsync(new IdentityRole(role));
-                }
-            }
-        }
+        //    foreach (var role in roles)
+        //    {
+        //        var roleExists = await roleManager.RoleExistsAsync(role);
+        //        if (!roleExists)
+        //        {
+        //            await roleManager.CreateAsync(new IdentityRole(role));
+        //        }
+        //    }
+        //}
     }
 }

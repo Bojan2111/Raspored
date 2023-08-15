@@ -41,9 +41,7 @@ namespace Raspored.Repositories
             Team team = _context.Teams.FirstOrDefault(x => x.Id == teamMember.TeamId);
             ApplicationUser user = _context.Users.FirstOrDefault(x => x.Id == teamMember.UserId);
             TeamMemberRole teamMemberRole = _context.TeamMemberRoles.FirstOrDefault(x => x.Id == teamMember.TeamMemberRoleId);
-            List<Shift> shifts = _context.Shifts.Include(s => s.ShiftType).Where(x => x.TeamMemberId == teamMemberId)
-                
-                .ToList();
+            List<Shift> shifts = _context.Shifts.Include(s => s.ShiftType).Where(x => x.TeamMemberId == teamMemberId).ToList();
             string monthName = shifts[0].Date.ToString("MMMM").ToUpper();
 
             PersonalSchedule personalSchedule = _mapper.Map<TeamMember, PersonalSchedule>(teamMember);
@@ -56,7 +54,7 @@ namespace Raspored.Repositories
             return personalSchedule;
         }
 
-        public void UpdatePersonalSchedule(PersonalSchedule projekcija)
+        public void UpdatePersonalSchedule(PersonalSchedule personalSchedule)
         {
             throw new System.NotImplementedException();
         }

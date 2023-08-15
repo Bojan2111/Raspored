@@ -31,9 +31,7 @@ namespace Raspored.Models.Login
         [Required(ErrorMessage = "License number is required")]
         public string LicenseNumber { get; set; }
         public int? ContractTypeId { get; set; }
-        //public ContractType ContractType { get; set; }
         public int? PositionId { get; set; }
-        //public Position Position { get; set; }
 
         public string Role { get; set; }
         public DateTime RegistrationDate { get; set; }
