@@ -34,7 +34,7 @@ namespace Raspored.Repositories
         {
             throw new System.NotImplementedException();
         }
-
+        
         public PersonalSchedule GetPersonalSchedule(int teamMemberId)
         {
             TeamMember teamMember = _context.TeamMembers.FirstOrDefault(x => x.Id == teamMemberId);
