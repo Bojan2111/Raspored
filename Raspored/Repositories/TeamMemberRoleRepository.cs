@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Raspored.Repositories
 {
-    public class TeamMemberRoleRepository : ITeamMemberRepository
+    public class TeamMemberRoleRepository : ITeamMemberRoleRepository
     {
         private readonly AppDbContext _context;
         private readonly IMapper _mapper;
@@ -16,27 +16,27 @@ namespace Raspored.Repositories
             _context = context;
             _mapper = mapper;
         }
-        public void AddTeamMember(TeamMemberDTO teamMember)
+        public void AddTeamMemberRole(TeamMemberRole teamMemberRole)
         {
             throw new System.NotImplementedException();
         }
 
-        public void DeleteTeamMember(TeamMemberDTO teamMember)
+        public void DeleteTeamMemberRole(TeamMemberRole teamMemberRole)
         {
             throw new System.NotImplementedException();
         }
 
-        public IQueryable<TeamMemberDTO> GetAllTeamMembers()
+        public IQueryable<TeamMemberRole> GetAllTeamMemberRoles()
         {
-            throw new System.NotImplementedException();
+            return _context.TeamMemberRoles.AsQueryable();
         }
 
-        public TeamMemberDTO GetTeamMember(int teamMemberId)
+        public TeamMemberRole GetTeamMemberRole(int teamMemberRoleId)
         {
-            throw new System.NotImplementedException();
+            return _context.TeamMemberRoles.FirstOrDefault(x => x.Id == teamMemberRoleId);
         }
 
-        public void UpdateTeamMember(TeamMemberDTO teamMember)
+        public void UpdateTeamMemberRole(TeamMemberRole teamMemberRole)
         {
             throw new System.NotImplementedException();
         }

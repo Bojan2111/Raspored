@@ -84,12 +84,14 @@ namespace Raspored
 
             services.AddAutoMapper(typeof(ShiftProfile));
             services.AddAutoMapper(typeof(PersonalScheduleProfile));
+            services.AddAutoMapper(typeof(TeamMemberProfile));
             //services.AddAutoMapper(config =>
             //{
             //    config.ValidateInlineMaps = false; // Disable automatic inline validation
             //}, typeof(Startup));
 
             services.AddScoped<IPersonalScheduleRepository, PersonalScheduleRepository>();
+            services.AddScoped<ITeamMemberRepository, TeamMemberRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

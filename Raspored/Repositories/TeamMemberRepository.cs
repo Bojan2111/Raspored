@@ -28,15 +28,19 @@ namespace Raspored.Repositories
             throw new System.NotImplementedException();
         }
 
-        public IQueryable<TeamMemberDTO> GetAllTeamMembers()
+        public IQueryable<TeamMember> GetAllTeamMembers()
         {
-            throw new System.NotImplementedException();
-            //return _context.TeamMembers;
+            return _context.TeamMembers.AsQueryable();
         }
 
         public TeamMemberDTO GetTeamMember(int teamMemberId)
         {
-            throw new System.NotImplementedException();
+            var teamMemberDto = _context.TeamMembers
+                .Where(x => x.Id == teamMemberId)
+                .ProjectTo<TeamMemberDTO>(_mapper.ConfigurationProvider)
+                .FirstOrDefault();
+
+            return teamMemberDto;
         }
 
         public void UpdateTeamMember(TeamMemberDTO teamMember)

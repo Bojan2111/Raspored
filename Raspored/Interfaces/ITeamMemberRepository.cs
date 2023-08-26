@@ -1,11 +1,12 @@
-﻿using Raspored.Models.DTOs;
+﻿using Raspored.Models;
+using Raspored.Models.DTOs;
 using System.Linq;
 
 namespace Raspored.Interfaces
 {
     public interface ITeamMemberRepository
     {
-        IQueryable<TeamMemberDTO> GetAllTeamMembers();
+        IQueryable<TeamMember> GetAllTeamMembers();
         TeamMemberDTO GetTeamMember(int teamMemberId);
         void AddTeamMember(TeamMemberDTO teamMember);
         void UpdateTeamMember(TeamMemberDTO teamMember);
