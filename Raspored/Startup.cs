@@ -91,7 +91,10 @@ namespace Raspored
             //}, typeof(Startup));
 
             services.AddScoped<IPersonalScheduleRepository, PersonalScheduleRepository>();
+            services.AddScoped<ITeamRepository, TeamRepository>();
             services.AddScoped<ITeamMemberRepository, TeamMemberRepository>();
+            services.AddScoped<ITeamMemberRoleRepository, TeamMemberRoleRepository>();
+            services.AddScoped<IShiftRepository, ShiftRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
