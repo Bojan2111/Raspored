@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
 using Raspored.Interfaces;
 using Raspored.Models;
@@ -29,12 +30,15 @@ namespace Raspored.Repositories
 
         public IQueryable<ShiftDTO> GetAllShifts()
         {
-            throw new System.NotImplementedException();
+            return _context.Shifts.AsQueryable().ProjectTo<ShiftDTO>(_mapper.ConfigurationProvider);
         }
 
-        public Shift GetShift(int id)
+        public ShiftDTO GetShift(int id)
         {
-            return _context.Shifts.FirstOrDefault(x => x.Id == id);
+            return _context.Shifts
+                .Where(shift => shift.Id == id)
+                .ProjectTo<ShiftDTO>(_mapper.ConfigurationProvider)
+                .FirstOrDefault();
         }
 
         public void UpdateShift(ShiftDTO shift)

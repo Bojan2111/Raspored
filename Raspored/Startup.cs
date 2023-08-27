@@ -85,6 +85,7 @@ namespace Raspored
             services.AddAutoMapper(typeof(ShiftProfile));
             services.AddAutoMapper(typeof(PersonalScheduleProfile));
             services.AddAutoMapper(typeof(TeamMemberProfile));
+            services.AddAutoMapper(typeof(TeamProfile));
             //services.AddAutoMapper(config =>
             //{
             //    config.ValidateInlineMaps = false; // Disable automatic inline validation

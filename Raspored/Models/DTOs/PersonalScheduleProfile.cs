@@ -24,13 +24,6 @@ namespace Raspored.Models.DTOs
                 .ForMember(dest => dest.TeamMemberRoleName, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.TeamMemberRoleDescription, opt => opt.MapFrom(src => src.Description));
 
-            //CreateMap<Shift, ShiftDTO>()
-            //    .Include<Shift, ShiftDTO>();
-
-            //CreateMap<Shift, PersonalSchedule>()
-            //    .ForMember(dest => dest.Shifts, opt => opt.MapFrom(src => src))
-            //    .ForMember(dest => dest.MonthName, opt => opt.MapFrom(src => src.Date.ToString("MMMM").ToUpper()));
-
             CreateMap<Shift, ShiftDTO>()
                 .ForMember(dest => dest.ShiftDate, opt => opt.MapFrom(src => src.Date))
                 .ForMember(dest => dest.TeamMemberId, opt => opt.MapFrom(src => src.TeamMemberId))
