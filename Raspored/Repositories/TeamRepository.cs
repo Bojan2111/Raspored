@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Raspored.Interfaces;
 using Raspored.Models;
@@ -23,16 +24,23 @@ namespace Raspored.Repositories
             _context = context;
             _mapper = mapper;
         }
-        public void AddTeam(TeamDTO team)
+        public void AddTeam(Team team)
         {
-            throw new System.NotImplementedException();
+            _context.Teams.Add(team);
+            _context.SaveChanges();
         }
 
-        public void DeleteTeam(TeamDTO team)
+        public void DeleteTeam(Team team)
         {
-            throw new System.NotImplementedException();
+            _context.Teams.Remove(team);
+            _context.SaveChanges();
         }
-        public IQueryable<TeamDTO> GetAllTeams()
+        public IQueryable<Team> GetAllTeams()
+        {
+            return _context.Teams.AsQueryable();
+        }
+
+        public IQueryable<TeamDTO> GetTeamsWithMembers()
         {
             var teams = _context.Teams
                 .Select(team => new TeamDTO
@@ -55,7 +63,12 @@ namespace Raspored.Repositories
             return teams;
         }
 
-        public TeamDTO GetTeam(int teamId)
+        public Team GetTeam(int teamId)
+        {
+            return _context.Teams.FirstOrDefault(t => t.Id == teamId);
+        }
+
+        public TeamDTO GetTeamWithMembers(int teamId)
         {
             var team = _context.Teams.FirstOrDefault(t => t.Id == teamId);
 
@@ -73,9 +86,19 @@ namespace Raspored.Repositories
             return teamDto;
         }
 
-        public void UpdateTeam(TeamDTO team)
+        public void UpdateTeam(Team team)
         {
-            throw new System.NotImplementedException();
+            _context.Entry(team).State = EntityState.Modified;
+
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
+            }
+
         }
     }
 }

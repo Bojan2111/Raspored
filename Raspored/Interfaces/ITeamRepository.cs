@@ -1,14 +1,17 @@
-﻿using Raspored.Models.DTOs;
+﻿using Raspored.Models;
+using Raspored.Models.DTOs;
 using System.Linq;
 
 namespace Raspored.Interfaces
 {
     public interface ITeamRepository
     {
-        IQueryable<TeamDTO> GetAllTeams();
-        TeamDTO GetTeam(int teamMemberId);
-        void AddTeam(TeamDTO team);
-        void UpdateTeam(TeamDTO team);
-        void DeleteTeam(TeamDTO team);
+        IQueryable<Team> GetAllTeams();
+        IQueryable<TeamDTO> GetTeamsWithMembers();
+        Team GetTeam(int teamMemberId);
+        TeamDTO GetTeamWithMembers(int teamId);
+        void AddTeam(Team team);
+        void UpdateTeam(Team team);
+        void DeleteTeam(Team team);
     }
 }
