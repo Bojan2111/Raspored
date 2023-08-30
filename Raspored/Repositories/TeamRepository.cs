@@ -1,16 +1,10 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Raspored.Interfaces;
 using Raspored.Models;
 using Raspored.Models.DTOs;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Reflection;
-using System.Security.AccessControl;
 
 namespace Raspored.Repositories
 {
