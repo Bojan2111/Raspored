@@ -23,6 +23,7 @@ namespace Raspored.Models.Login
 
         [EmailAddress]
         [Required(ErrorMessage = "Email is required")]
+        [RegularExpression(@"^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$", ErrorMessage = "Incorrect email format!")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Password is required")]

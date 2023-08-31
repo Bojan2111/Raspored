@@ -1,4 +1,5 @@
-﻿using Raspored.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Raspored.Interfaces;
 using Raspored.Models;
 using System.Linq;
 
@@ -14,12 +15,14 @@ namespace Raspored.Repositories
         }
         public void AddTeamMemberRole(TeamMemberRole teamMemberRole)
         {
-            throw new System.NotImplementedException();
+            _context.TeamMemberRoles.Add(teamMemberRole);
+            _context.SaveChanges();
         }
 
         public void DeleteTeamMemberRole(TeamMemberRole teamMemberRole)
         {
-            throw new System.NotImplementedException();
+            _context.TeamMemberRoles.Remove(teamMemberRole);
+            _context.SaveChanges();
         }
 
         public IQueryable<TeamMemberRole> GetAllTeamMemberRoles()
@@ -34,7 +37,16 @@ namespace Raspored.Repositories
 
         public void UpdateTeamMemberRole(TeamMemberRole teamMemberRole)
         {
-            throw new System.NotImplementedException();
+            _context.Entry(teamMemberRole).State = EntityState.Modified;
+
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
+            }
         }
     }
 }
