@@ -16,22 +16,24 @@ namespace Raspored.Repositories
 
         public void AddPosition(Position position)
         {
-            throw new System.NotImplementedException();
+            _context.Positions.Add(position);
+            _context.SaveChanges();
         }
 
         public void DeletePosition(Position position)
         {
-            throw new System.NotImplementedException();
+            _context.Positions.Remove(position);
+            _context.SaveChanges();
         }
 
         public IQueryable<Position> GetAllPositions()
         {
-            throw new System.NotImplementedException();
+            return _context.Positions;
         }
 
         public Position GetPosition(int positionId)
         {
-            throw new System.NotImplementedException();
+            return _context.Positions.FirstOrDefault(x => x.Id == positionId);
         }
 
         public void UpdatePosition(Position position)

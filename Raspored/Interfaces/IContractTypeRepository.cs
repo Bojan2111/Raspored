@@ -6,8 +6,8 @@ namespace Raspored.Interfaces
     public interface IContractTypeRepository
     {
         IQueryable<ContractType> GetAllContractTypes();
-        Position GetContractType(int contractTypeId);
-        void AddContractTypen(ContractType contractType);
+        ContractType GetContractType(int contractTypeId);
+        void AddContractType(ContractType contractType);
         void UpdateContractType(ContractType contractType);
         void DeleteContractType(ContractType contractType);
     }

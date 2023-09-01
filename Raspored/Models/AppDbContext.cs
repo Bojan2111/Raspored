@@ -20,13 +20,14 @@ namespace Raspored.Models
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
         protected override void OnModelCreating(ModelBuilder builder)
         {
-
+            /*
             builder.Entity<IdentityUserRole<string>>().ToTable("UserRoles");
             builder.Entity<IdentityUserClaim<string>>().ToTable("UserClaims");
             builder.Entity<IdentityUserLogin<string>>().ToTable("UserLogins");
             builder.Entity<IdentityRoleClaim<string>>().ToTable("RoleClaims");
             builder.Entity<IdentityUserToken<string>>().ToTable("UserTokens");
 
+            */
             builder.Entity<Position>().HasData(
                 new Position()
                 {
@@ -97,7 +98,7 @@ namespace Raspored.Models
                     Name = "Prekinut radni odnos"
                 }
             );
-
+            /*
             var adminUser = new ApplicationUser
             {
                 UserName = "admin",
@@ -148,6 +149,7 @@ namespace Raspored.Models
                 //entity.Property(u => u.ProfileImage).HasMaxLength(255);
                 entity.HasData(adminUser, user1, user2);
             });
+            */
 
             base.OnModelCreating(builder);
         }

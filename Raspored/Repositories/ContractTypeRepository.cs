@@ -14,24 +14,26 @@ namespace Raspored.Repositories
             _context = context;
         }
 
-        public void AddContractTypen(ContractType contractType)
+        public void AddContractType(ContractType contractType)
         {
-            throw new System.NotImplementedException();
+            _context.ContractTypes.Add(contractType);
+            _context.SaveChanges();
         }
 
         public void DeleteContractType(ContractType contractType)
         {
-            throw new System.NotImplementedException();
+            _context.ContractTypes.Remove(contractType);
+            _context.SaveChanges();
         }
 
         public IQueryable<ContractType> GetAllContractTypes()
         {
-            throw new System.NotImplementedException();
+            return _context.ContractTypes.AsQueryable();
         }
 
-        public Position GetContractType(int contractTypeId)
+        public ContractType GetContractType(int contractTypeId)
         {
-            throw new System.NotImplementedException();
+            return _context.ContractTypes.FirstOrDefault(x => x.Id == contractTypeId);
         }
 
         public void UpdateContractType(ContractType contractType)
