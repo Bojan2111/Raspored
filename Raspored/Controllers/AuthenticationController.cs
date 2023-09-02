@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Raspored.Controllers
 {
+    // Based on the following code, could you help me build a GetProfile method which would return all data from ApplicationUser on request from authorized user? Thanks!
     [Route("api/[controller]")]
     [ApiController]
     public class AuthenticationController : ControllerBase
@@ -27,9 +28,66 @@ namespace Raspored.Controllers
             _signInManager = signInManager;
             _configuration = configuration;
         }
-        
+
+        [HttpGet]
+        [Route("/api/profile")]
+        //[Authorize]
+        public async Task<IActionResult> GetProfile()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            var userProfile = new UserProfileDTO
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                DateOfBirth = user.DateOfBirth,
+                UserName = user.UserName,
+                Email = user.Email,
+                YearOfEmployment = user.YearOfEmployment,
+                LicenseNumber = user.LicenseNumber,
+                ContractTypeId = (int)user.ContractTypeId,
+                PositionId = (int)user.PositionId
+            };
+
+            return Ok(userProfile);
+        }
+
+        [HttpGet]
+        [Route("/api/user/{id}")]
+        //[Authorize(Roles = "admin")]
+        public async Task<IActionResult> GetUserById(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            var userProfile = new UserProfileDTO
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                DateOfBirth = user.DateOfBirth,
+                UserName = user.UserName,
+                Email = user.Email,
+                YearOfEmployment = user.YearOfEmployment,
+                LicenseNumber = user.LicenseNumber,
+                ContractTypeId = (int)user.ContractTypeId,
+                PositionId = (int)user.PositionId
+            };
+
+            return Ok(userProfile);
+        }
+
         [HttpPost]
-        [Authorize("admin")]
+        //[Authorize("admin")]
         [Route("api/register")]
         public async Task<IActionResult> Register(RegistrationDTO model)
         {

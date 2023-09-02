@@ -86,10 +86,6 @@ namespace Raspored
             services.AddAutoMapper(typeof(PersonalScheduleProfile));
             services.AddAutoMapper(typeof(TeamMemberProfile));
             services.AddAutoMapper(typeof(TeamProfile));
-            //services.AddAutoMapper(config =>
-            //{
-            //    config.ValidateInlineMaps = false; // Disable automatic inline validation
-            //}, typeof(Startup));
 
             services.AddScoped<IPersonalScheduleRepository, PersonalScheduleRepository>();
             services.AddScoped<ITeamRepository, TeamRepository>();
