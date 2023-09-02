@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Raspored.Controllers
 {
-    // Based on the following code, could you help me build a GetProfile method which would return all data from ApplicationUser on request from authorized user? Thanks!
     [Route("api/[controller]")]
     [ApiController]
     public class AuthenticationController : ControllerBase
@@ -31,7 +30,7 @@ namespace Raspored.Controllers
 
         [HttpGet]
         [Route("/api/profile")]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> GetProfile()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -60,7 +59,7 @@ namespace Raspored.Controllers
 
         [HttpGet]
         [Route("/api/user/{id}")]
-        //[Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> GetUserById(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
@@ -87,8 +86,8 @@ namespace Raspored.Controllers
         }
 
         [HttpPost]
-        //[Authorize("admin")]
-        [Route("api/register")]
+        [Authorize("admin")]
+        [Route("/api/register")]
         public async Task<IActionResult> Register(RegistrationDTO model)
         {
             var user = new ApplicationUser
@@ -158,6 +157,41 @@ namespace Raspored.Controllers
                 });
             }
             return Unauthorized();
+        }
+
+        [HttpPut]
+        [Route("/api/users/{id}")]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> UpdateUser(string id, [FromBody] UserProfileDTO updatedUserData)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            // Restrict updatable fields by checking the properties of `updatedUserData`.
+
+            user.FirstName = updatedUserData.FirstName;
+            user.LastName = updatedUserData.LastName;
+            user.DateOfBirth = updatedUserData.DateOfBirth;
+            user.UserName = updatedUserData.UserName;
+            user.Email = updatedUserData.Email;
+            user.YearOfEmployment = updatedUserData.YearOfEmployment;
+            user.LicenseNumber = updatedUserData.LicenseNumber;
+            user.ContractTypeId = updatedUserData.ContractTypeId;
+            user.PositionId = updatedUserData.PositionId;
+
+            var result = await _userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+                return Ok("User updated successfully");
+            }
+            else
+            {
+                return BadRequest(result.Errors);
+            }
         }
 
         [HttpDelete("{id}")]
