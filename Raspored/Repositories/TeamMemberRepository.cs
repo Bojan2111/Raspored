@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using Raspored.Interfaces;
 using Raspored.Models;
 using Raspored.Models.DTOs;
@@ -18,14 +19,16 @@ namespace Raspored.Repositories
             _mapper = mapper;
         }
 
-        public void AddTeamMember(TeamMemberDTO teamMember)
+        public void AddTeamMember(TeamMember teamMember)
         {
-            throw new System.NotImplementedException();
+            _context.TeamMembers.Add(teamMember);
+            _context.SaveChanges();
         }
 
-        public void DeleteTeamMember(TeamMemberDTO teamMember)
+        public void DeleteTeamMember(TeamMember teamMember)
         {
-            throw new System.NotImplementedException();
+            _context.TeamMembers.Remove(teamMember);
+            _context.SaveChanges();
         }
 
         public IQueryable<TeamMember> GetAllTeamMembers()
@@ -43,9 +46,18 @@ namespace Raspored.Repositories
             return teamMemberDto;
         }
 
-        public void UpdateTeamMember(TeamMemberDTO teamMember)
+        public void UpdateTeamMember(TeamMember teamMember)
         {
-            throw new System.NotImplementedException();
+            _context.Entry(teamMember).State = EntityState.Modified;
+
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
+            }
         }
     }
 }

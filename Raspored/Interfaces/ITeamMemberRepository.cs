@@ -8,8 +8,8 @@ namespace Raspored.Interfaces
     {
         IQueryable<TeamMember> GetAllTeamMembers();
         TeamMemberDTO GetTeamMember(int teamMemberId);
-        void AddTeamMember(TeamMemberDTO teamMember);
-        void UpdateTeamMember(TeamMemberDTO teamMember);
-        void DeleteTeamMember(TeamMemberDTO teamMember);
+        void AddTeamMember(TeamMember teamMember);
+        void UpdateTeamMember(TeamMember teamMember);
+        void DeleteTeamMember(TeamMember teamMember);
     }
 }

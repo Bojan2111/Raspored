@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Raspored.Interfaces;
 using Raspored.Models;
 using Raspored.Models.DTOs;
@@ -18,14 +19,16 @@ namespace Raspored.Repositories
             _context = context;
             _mapper = mapper;
         }
-        public void AddShift(ShiftDTO shift)
+        public void AddShift(Shift shift)
         {
-            throw new System.NotImplementedException();
+            _context.Shifts.Add(shift);
+            _context.SaveChanges();
         }
 
-        public void DeleteShift(ShiftDTO shift)
+        public void DeleteShift(Shift shift)
         {
-            throw new System.NotImplementedException();
+            _context.Shifts.Remove(shift);
+            _context.SaveChanges();
         }
 
         public IQueryable<ShiftDTO> GetAllShifts()
@@ -41,9 +44,18 @@ namespace Raspored.Repositories
                 .FirstOrDefault();
         }
 
-        public void UpdateShift(ShiftDTO shift)
+        public void UpdateShift(Shift shift)
         {
-            throw new System.NotImplementedException();
+            _context.Entry(shift).State = EntityState.Modified;
+
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
+            }
         }
     }
 }

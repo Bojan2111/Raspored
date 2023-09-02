@@ -8,8 +8,8 @@ namespace Raspored.Interfaces
     {
         IQueryable<ShiftDTO> GetAllShifts();
         ShiftDTO GetShift(int teamMemberId);
-        void AddShift(ShiftDTO shift);
-        void UpdateShift(ShiftDTO shift);
-        void DeleteShift(ShiftDTO shift);
+        void AddShift(Shift shift);
+        void UpdateShift(Shift shift);
+        void DeleteShift(Shift shift);
     }
 }
