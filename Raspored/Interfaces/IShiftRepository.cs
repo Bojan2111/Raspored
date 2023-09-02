@@ -7,7 +7,8 @@ namespace Raspored.Interfaces
     public interface IShiftRepository
     {
         IQueryable<ShiftDTO> GetAllShifts();
-        ShiftDTO GetShift(int teamMemberId);
+        ShiftDTO GetShift(int shiftId);
+        Shift GetShiftById(int shiftId);
         void AddShift(Shift shift);
         void UpdateShift(Shift shift);
         void DeleteShift(Shift shift);

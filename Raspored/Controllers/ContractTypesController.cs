@@ -56,7 +56,7 @@ namespace Raspored.Controllers
         }
 
         [HttpPut]
-        [Route("/api/contract-type/{id}")]
+        [Route("/api/contract-types/{id}")]
         public IActionResult PutContractType(int id, ContractType contractType)
         {
             if (!ModelState.IsValid)

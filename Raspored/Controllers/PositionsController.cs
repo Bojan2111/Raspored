@@ -54,7 +54,7 @@ namespace Raspored.Controllers
         }
 
         [HttpPut]
-        [Route("/api/position/{id}")]
+        [Route("/api/positions/{id}")]
         public IActionResult PutPosition(int id, Position position)
         {
             if (!ModelState.IsValid)

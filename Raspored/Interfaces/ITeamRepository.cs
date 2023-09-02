@@ -8,7 +8,7 @@ namespace Raspored.Interfaces
     {
         IQueryable<Team> GetAllTeams();
         IQueryable<TeamDTO> GetTeamsWithMembers();
-        Team GetTeam(int teamMemberId);
+        Team GetTeam(int teamId);
         TeamDTO GetTeamWithMembers(int teamId);
         void AddTeam(Team team);
         void UpdateTeam(Team team);

@@ -44,6 +44,11 @@ namespace Raspored.Repositories
                 .FirstOrDefault();
         }
 
+        public Shift GetShiftById(int id)
+        {
+            return _context.Shifts.FirstOrDefault(shift => shift.Id == id);
+        }
+
         public void UpdateShift(Shift shift)
         {
             _context.Entry(shift).State = EntityState.Modified;

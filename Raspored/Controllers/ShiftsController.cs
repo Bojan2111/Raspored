@@ -3,7 +3,9 @@ using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Raspored.Interfaces;
+using Raspored.Models;
 using Raspored.Models.DTOs;
+using Raspored.Repositories;
 using System.Linq;
 
 namespace Raspored.Controllers
@@ -38,6 +40,60 @@ namespace Raspored.Controllers
                 return NotFound();
             }
             return Ok(shift);
+        }
+
+        [HttpPost]
+        [Route("/api/shifts")]
+        public IActionResult PostShift([FromBody] Shift shift)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            _shiftRepository.AddShift(shift);
+
+            return CreatedAtAction("GetShift", new { id = shift.Id }, shift);
+        }
+
+        [HttpPut]
+        [Route("/api/shifts/{id}")]
+        public IActionResult PutShift(int id, Shift shift)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != shift.Id)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                _shiftRepository.UpdateShift(shift);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+            return Ok(shift);
+        }
+
+        [HttpDelete]
+        [Route("/api/shifts/{id}")]
+        public IActionResult DeleteShift(int id)
+        {
+            var shift = _shiftRepository.GetShiftById(id);
+            if (shift == null)
+            {
+                return NotFound();
+            }
+
+            _shiftRepository.DeleteShift(shift);
+            return NoContent();
         }
     }
 }

@@ -46,6 +46,11 @@ namespace Raspored.Repositories
             return teamMemberDto;
         }
 
+        public TeamMember GetTeamMemberById(int teamMemberId)
+        {
+            return _context.TeamMembers.FirstOrDefault(x => x.Id == teamMemberId);
+        }
+
         public void UpdateTeamMember(TeamMember teamMember)
         {
             _context.Entry(teamMember).State = EntityState.Modified;
