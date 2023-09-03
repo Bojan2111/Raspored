@@ -36,7 +36,7 @@ namespace Raspored
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //// For Entity Framework  - uncomment when AppDbContext class is created
+            // For Entity Framework
             services.AddDbContext<AppDbContext>(options =>
                     options.UseSqlServer(ConfigurationExtensions.GetConnectionString(Configuration, "AppConnectionString")));
 
@@ -62,6 +62,8 @@ namespace Raspored
                 {
                     ValidateIssuer = true,
                     ValidateAudience = true,
+                    //ValidateLifetime = true,
+                    //ValidateIssuerSigningKey = true,
                     ValidAudience = Configuration["Jwt:Audience"],
                     ValidIssuer = Configuration["Jwt:Issuer"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
@@ -94,6 +96,7 @@ namespace Raspored
             services.AddScoped<IShiftRepository, ShiftRepository>();
             services.AddScoped<IPositionRepository, PositionRepository>();
             services.AddScoped<IContractTypeRepository, ContractTypeRepository>();
+            services.AddScoped<IFeatureRepository, FeatureRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
