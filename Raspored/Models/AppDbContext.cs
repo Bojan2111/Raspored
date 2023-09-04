@@ -17,6 +17,7 @@ namespace Raspored.Models
         public DbSet<ContractType> ContractTypes { get; set; }
         public DbSet<RoleFeatureMapping> RoleFeatureMappings { get; set; }
         public DbSet<Feature> Features { get; set; }
+        public DbSet<FeatureType> FeatureTypes { get; set; }
 
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }

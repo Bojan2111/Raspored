@@ -25,18 +25,16 @@ namespace Raspored.Controllers
         [Authorize]
         public async Task<IActionResult> ListFeatures()
         {
-            // Get the current user
             _ = await _userManager.GetUserAsync(User);
 
-            // Check if the user has a role
             if (User.IsInRole("admin"))
             {
                 var features = _featureRepository.GetFeaturesForRole("admin");
                 return Ok(features);
             }
-            else if (User.IsInRole("employee"))
+            else if (User.IsInRole("zaposleni"))
             {
-                var features = _featureRepository.GetFeaturesForRole("employee");
+                var features = _featureRepository.GetFeaturesForRole("zaposleni");
                 return Ok(features);
             }
             else
@@ -44,29 +42,5 @@ namespace Raspored.Controllers
                 return Unauthorized();
             }
         }
-        //private readonly IFeatureRepository _featureRepository;
-
-        //public FeatureController(IFeatureRepository featureRepository)
-        //{
-        //    _featureRepository = featureRepository;
-        //}
-
-        //[HttpGet]
-        //[Route("/api/admin-features")]
-        ////[Authorize(Roles = "admin")]
-        //public IActionResult ListFeaturesForAdmin()
-        //{
-        //    var features = _featureRepository.GetFeaturesForRole("admin");
-        //    return Ok(features);
-        //}
-
-        //[HttpGet]
-        //[Route("/api/regular-features")]
-        ////[Authorize(Roles = "zaposleni")]
-        //public IActionResult ListFeaturesForEmployee()
-        //{
-        //    var features = _featureRepository.GetFeaturesForRole("zaposleni");
-        //    return Ok(features);
-        //}
     }
 }

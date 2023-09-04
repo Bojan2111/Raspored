@@ -9,5 +9,7 @@ namespace Raspored.Models
         public IdentityRole Role { get; set; }
         public int FeatureId { get; set; }
         public Feature Feature { get; set; }
+        public int FeatureTypeId { get; set; }
+        public FeatureType FeatureType { get; set; }
     }
 }

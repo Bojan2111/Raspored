@@ -2,12 +2,13 @@
 
 namespace Raspored.Models
 {
-    public class Position
+    public class FeatureType
     {
         public int Id { get; set; }
 
         [Required]
         [StringLength(100)]
         public string Name { get; set; }
+
     }
 }
