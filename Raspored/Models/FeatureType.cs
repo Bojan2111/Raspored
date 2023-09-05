@@ -10,5 +10,9 @@ namespace Raspored.Models
         [StringLength(100)]
         public string Name { get; set; }
 
+        [Required]
+        [StringLength(256)]
+        public string Description { get; set; }
+
     }
 }

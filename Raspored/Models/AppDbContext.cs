@@ -101,6 +101,90 @@ namespace Raspored.Models
                     Name = "Prekinut radni odnos"
                 }
             );
+
+            builder.Entity<FeatureType>().HasData(
+                new FeatureType()
+                {
+                    Id = 1,
+                    Name = "Raspored"
+                },
+                new FeatureType()
+                {
+                    Id = 2,
+                    Name = "Timovi"
+                },
+                new FeatureType()
+                {
+                    Id = 3,
+                    Name = "Zaposleni"
+                },
+                new FeatureType()
+                {
+                    Id = 4,
+                    Name = "Podešavanja"
+                },
+                new FeatureType()
+                {
+                    Id = 5,
+                    Name = "Profil"
+                },
+                new FeatureType()
+                {
+                    Id = 6,
+                    Name = "RCZaglavlje"
+                },
+                new FeatureType()
+                {
+                    Id = 7,
+                    Name = "RCImeClana"
+                },
+                new FeatureType()
+                {
+                    Id = 8,
+                    Name = "RCDatumSmene"
+                },
+                new FeatureType()
+                {
+                    Id = 9,
+                    Name = "RCSmena"
+                }
+            );
+
+            builder.Entity<Feature>().HasData(
+                new Feature() { Id = 1, Name = "", Description = "" },
+                new Feature() { Id = 2, Name = "", Description = "" },
+                new Feature() { Id = 3, Name = "", Description = "" },
+                new Feature() { Id = 4, Name = "", Description = "" },
+                new Feature() { Id = 5, Name = "", Description = "" },
+                new Feature() { Id = 6, Name = "", Description = "" },
+                new Feature() { Id = 7, Name = "", Description = "" },
+                new Feature() { Id = 8, Name = "", Description = "" },
+                new Feature() { Id = 9, Name = "", Description = "" },
+                new Feature() { Id = 10, Name = "", Description = "" },
+                new Feature() { Id = 11, Name = "", Description = "" },
+                new Feature() { Id = 12, Name = "", Description = "" },
+                new Feature() { Id = 13, Name = "", Description = "" },
+                new Feature() { Id = 14, Name = "", Description = "" },
+                new Feature() { Id = 15, Name = "", Description = "" },
+                new Feature() { Id = 16, Name = "", Description = "" },
+                new Feature() { Id = 17, Name = "", Description = "" },
+                new Feature() { Id = 18, Name = "", Description = "" },
+                new Feature() { Id = 19, Name = "", Description = "" },
+                new Feature() { Id = 20, Name = "", Description = "" },
+                new Feature() { Id = 21, Name = "", Description = "" },
+                new Feature() { Id = 22, Name = "", Description = "" },
+                new Feature() { Id = 23, Name = "", Description = "" },
+                new Feature() { Id = 24, Name = "", Description = "" },
+                new Feature() { Id = 25, Name = "", Description = "" },
+                new Feature() { Id = 26, Name = "", Description = "" },
+                new Feature() { Id = 27, Name = "", Description = "" },
+                new Feature() { Id = 28, Name = "", Description = "" },
+                new Feature() { Id = 29, Name = "", Description = "" },
+                new Feature() { Id = 30, Name = "", Description = "" },
+                new Feature() { Id = 31, Name = "", Description = "" },
+                new Feature() { Id = 32, Name = "", Description = "" },
+                new Feature() { Id = 33, Name = "", Description = "" }
+            );
             /*
             var adminUser = new ApplicationUser
             {
