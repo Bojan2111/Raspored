@@ -18,7 +18,7 @@ namespace Raspored.Controllers
 
 
         [HttpGet]
-        [Route("/api/positions")]
+        [Route("/positions")]
         public IActionResult GetPositions()
         {
             return Ok(_positionRepository.GetAllPositions());
@@ -26,7 +26,7 @@ namespace Raspored.Controllers
 
 
         [HttpGet]
-        [Route("/api/positions/{id}")]
+        [Route("/positions/{id}")]
         public IActionResult GetPosition(int id)
         {
             var position = _positionRepository.GetPosition(id);
@@ -40,7 +40,7 @@ namespace Raspored.Controllers
         }
 
         [HttpPost]
-        [Route("/api/positions")]
+        [Route("/positions")]
         public IActionResult PostPosition([FromBody] Position position)
         {
             if (!ModelState.IsValid)
@@ -54,7 +54,7 @@ namespace Raspored.Controllers
         }
 
         [HttpPut]
-        [Route("/api/positions/{id}")]
+        [Route("/positions/{id}")]
         public IActionResult PutPosition(int id, Position position)
         {
             if (!ModelState.IsValid)
@@ -80,7 +80,7 @@ namespace Raspored.Controllers
         }
 
         [HttpDelete]
-        [Route("/api/positions/{id}")]
+        [Route("/positions/{id}")]
         public IActionResult DeletePosition(int id)
         {
             var position = _positionRepository.GetPosition(id);

@@ -25,7 +25,7 @@ namespace Raspored.Controllers
         }
 
         [HttpGet]
-        [Route("/api/teams")]
+        [Route("/teams")]
         public IActionResult GetTeams()
         {
             var teams = _teamRepository.GetAllTeams();
@@ -33,7 +33,7 @@ namespace Raspored.Controllers
         }
 
         [HttpGet]
-        [Route("/api/teams/{id}")]
+        [Route("/teams/{id}")]
         public IActionResult GetTeam(int id)
         {
             var team = _teamRepository.GetTeam(id);
@@ -45,14 +45,14 @@ namespace Raspored.Controllers
         }
 
         [HttpGet]
-        [Route("/api/teams-with-members")]
+        [Route("/teams-with-members")]
         public IActionResult GetTeamsWithMembers()
         {
             return Ok(_teamRepository.GetTeamsWithMembers());
         }
 
         [HttpGet]
-        [Route("/api/teams-with-members/{id}")]
+        [Route("/teams-with-members/{id}")]
         public IActionResult GetTeamWithMembers(int id)
         {
             var team = _teamRepository.GetTeamWithMembers(id);
@@ -64,7 +64,7 @@ namespace Raspored.Controllers
         }
 
         [HttpPost]
-        [Route("/api/teams")]
+        [Route("/teams")]
         public IActionResult PostTeam([FromBody] Team team)
         {
             if (!ModelState.IsValid)
@@ -78,7 +78,7 @@ namespace Raspored.Controllers
         }
 
         [HttpPut]
-        [Route("/api/teams/{id}")]
+        [Route("/teams/{id}")]
         public IActionResult PutTeam(int id, Team team)
         {
             if (!ModelState.IsValid)
@@ -104,7 +104,7 @@ namespace Raspored.Controllers
         }
 
         [HttpDelete]
-        [Route("/api/teams/{id}")]
+        [Route("/teams/{id}")]
         public IActionResult DeletePaket(int id)
         {
             var team = _teamRepository.GetTeam(id);

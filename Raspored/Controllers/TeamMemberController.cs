@@ -43,7 +43,7 @@ namespace Raspored.Controllers
         }
 
         [HttpPost]
-        [Route("/api/team-members")]
+        [Route("/team-members")]
         public IActionResult PostTeamMember([FromBody] TeamMember teamMember)
         {
             if (!ModelState.IsValid)
@@ -57,7 +57,7 @@ namespace Raspored.Controllers
         }
 
         [HttpPut]
-        [Route("/api/team-members/{id}")]
+        [Route("/team-members/{id}")]
         public IActionResult PutTeamMember(int id, TeamMember teamMember)
         {
             if (!ModelState.IsValid)
@@ -83,7 +83,7 @@ namespace Raspored.Controllers
         }
 
         [HttpDelete]
-        [Route("/api/team-members/{id}")]
+        [Route("/team-members/{id}")]
         public IActionResult DeleteTeamMember(int id)
         {
             var teamMember = _teamMemberRepository.GetTeamMemberById(id);

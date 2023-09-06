@@ -22,14 +22,14 @@ namespace Raspored.Controllers
         }
 
         [HttpGet]
-        [Route("/api/team-member-roles")]
+        [Route("/team-member-roles")]
         public IActionResult GetTeamMemberRoles()
         {
             return Ok(_teamMemberRoleRepository.GetAllTeamMemberRoles());
         }
 
         [HttpGet]
-        [Route("/api/team-member-roles/{id}")]
+        [Route("/team-member-roles/{id}")]
         public IActionResult GetTeamMemberRole(int id)
         {
             var teamMemberRole = _teamMemberRoleRepository.GetTeamMemberRole(id);
@@ -41,7 +41,7 @@ namespace Raspored.Controllers
         }
 
         [HttpPost]
-        [Route("/api/team-member-roles")]
+        [Route("/team-member-roles")]
         public IActionResult PostTeamMemberRole([FromBody] TeamMemberRole teamMemberRole)
         {
             if (!ModelState.IsValid)
@@ -55,7 +55,7 @@ namespace Raspored.Controllers
         }
 
         [HttpPut]
-        [Route("/api/team-member-roles/{id}")]
+        [Route("/team-member-roles/{id}")]
         public IActionResult PutTeamMemberRole(int id, TeamMemberRole teamMemberRole)
         {
             if (!ModelState.IsValid)
@@ -81,7 +81,7 @@ namespace Raspored.Controllers
         }
 
         [HttpDelete]
-        [Route("/api/team-member-roles/{id}")]
+        [Route("/team-member-roles/{id}")]
         public IActionResult DeleteTeamMemberRole(int id)
         {
             var teamMemberRole = _teamMemberRoleRepository.GetTeamMemberRole(id);

@@ -29,7 +29,7 @@ namespace Raspored.Controllers
         }
 
         [HttpGet]
-        [Route("/api/profile")]
+        [Route("/profile")]
         [Authorize]
         public async Task<IActionResult> GetProfile()
         {
@@ -58,7 +58,7 @@ namespace Raspored.Controllers
         }
 
         [HttpGet]
-        [Route("/api/user/{id}")]
+        [Route("/users/{id}")]
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> GetUserById(string id)
         {
@@ -87,7 +87,7 @@ namespace Raspored.Controllers
 
         [HttpPost]
         [Authorize("admin")]
-        [Route("/api/register")]
+        [Route("/register")]
         public async Task<IActionResult> Register(RegistrationDTO model)
         {
             var user = new ApplicationUser
@@ -117,7 +117,7 @@ namespace Raspored.Controllers
         }
 
         [HttpPost]
-        [Route("login")]
+        [Route("/login")]
         public IActionResult Login([FromBody] LoginDTO model)
         {
             if (!ModelState.IsValid)
@@ -160,7 +160,7 @@ namespace Raspored.Controllers
         }
 
         [HttpPut]
-        [Route("/api/users/{id}")]
+        [Route("/users/{id}")]
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> UpdateUser(string id, [FromBody] UserProfileDTO updatedUserData)
         {
@@ -194,7 +194,9 @@ namespace Raspored.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("/users/{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteUser(string id)
         {
             var user = await _userManager.FindByIdAsync(id);

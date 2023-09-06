@@ -24,14 +24,14 @@ namespace Raspored.Controllers
         }
 
         [HttpGet]
-        [Route("/api/shifts")]
+        [Route("/shifts")]
         public IActionResult GetShifts()
         {
             return Ok(_shiftRepository.GetAllShifts());
         }
 
         [HttpGet]
-        [Route("/api/shifts/{id}")]
+        [Route("/shifts/{id}")]
         public IActionResult GetShift(int id)
         {
             var shift = _shiftRepository.GetShift(id);
@@ -43,7 +43,7 @@ namespace Raspored.Controllers
         }
 
         [HttpPost]
-        [Route("/api/shifts")]
+        [Route("/shifts")]
         public IActionResult PostShift([FromBody] Shift shift)
         {
             if (!ModelState.IsValid)
@@ -57,7 +57,7 @@ namespace Raspored.Controllers
         }
 
         [HttpPut]
-        [Route("/api/shifts/{id}")]
+        [Route("/shifts/{id}")]
         public IActionResult PutShift(int id, Shift shift)
         {
             if (!ModelState.IsValid)
@@ -83,7 +83,7 @@ namespace Raspored.Controllers
         }
 
         [HttpDelete]
-        [Route("/api/shifts/{id}")]
+        [Route("/shifts/{id}")]
         public IActionResult DeleteShift(int id)
         {
             var shift = _shiftRepository.GetShiftById(id);

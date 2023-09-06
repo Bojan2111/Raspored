@@ -20,7 +20,7 @@ namespace Raspored.Controllers
 
 
         [HttpGet]
-        [Route("/api/contract-types")]
+        [Route("/contract-types")]
         public IActionResult GetContractTypes()
         {
             return Ok(_contractTypeRepository.GetAllContractTypes());
@@ -28,7 +28,7 @@ namespace Raspored.Controllers
 
 
         [HttpGet]
-        [Route("/api/contract-types/{id}")]
+        [Route("/contract-types/{id}")]
         public IActionResult GetContractType(int id)
         {
             var contractType = _contractTypeRepository.GetContractType(id);
@@ -42,7 +42,7 @@ namespace Raspored.Controllers
         }
 
         [HttpPost]
-        [Route("/api/contract-types")]
+        [Route("/contract-types")]
         public IActionResult PostContractType([FromBody] ContractType contractType)
         {
             if (!ModelState.IsValid)
@@ -56,7 +56,7 @@ namespace Raspored.Controllers
         }
 
         [HttpPut]
-        [Route("/api/contract-types/{id}")]
+        [Route("/contract-types/{id}")]
         public IActionResult PutContractType(int id, ContractType contractType)
         {
             if (!ModelState.IsValid)
@@ -82,7 +82,7 @@ namespace Raspored.Controllers
         }
 
         [HttpDelete]
-        [Route("/api/contract-types/{id}")]
+        [Route("/contract-types/{id}")]
         public IActionResult DeleteContractType(int id)
         {
             var contractType = _contractTypeRepository.GetContractType(id);

@@ -21,7 +21,7 @@ namespace Raspored.Controllers
             _userManager = userManager;
         }
 
-        [HttpGet("/api/role-features")]
+        [HttpGet("/role-features")]
         [Authorize]
         public async Task<IActionResult> ListFeatures()
         {
