@@ -1,4 +1,6 @@
-﻿namespace Raspored.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Raspored.Models
 {
     public class ShiftChangeRequest
     {
@@ -11,6 +13,7 @@
         public TeamMember FirstTeamMember { get; set; }
         public int SecondTeamMemberId { get; set; }
         public TeamMember SecondTeamMember { get; set; }
+        [StringLength(10)]
         public string RequestStatus { get; set; }
         public string RequestMessage { get; set; }
     }

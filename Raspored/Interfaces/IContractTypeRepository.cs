@@ -10,5 +10,6 @@ namespace Raspored.Interfaces
         void AddContractType(ContractType contractType);
         void UpdateContractType(ContractType contractType);
         void DeleteContractType(ContractType contractType);
+        bool IsConflictDetected(int contractTypeId);
     }
 }

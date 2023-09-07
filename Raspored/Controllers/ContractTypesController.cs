@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Raspored.CustomExceptions;
 using Raspored.Interfaces;
 using Raspored.Models;
 using Raspored.Repositories;
@@ -38,21 +40,36 @@ namespace Raspored.Controllers
                 return NotFound();
             }
 
-            return Ok();
+            return Ok(contractType);
         }
 
         [HttpPost]
         [Route("/contract-types")]
         public IActionResult PostContractType([FromBody] ContractType contractType)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (_contractTypeRepository.IsConflictDetected(contractType.Id))
+                {
+                    throw new DataConflictException("A contract type with the same ID already exists.");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                _contractTypeRepository.AddContractType(contractType);
+
+                return CreatedAtAction("GetContractType", new { id = contractType.Id }, contractType);
             }
-
-            _contractTypeRepository.AddContractType(contractType);
-
-            return CreatedAtAction("GetContractType", new { id = contractType.Id }, contractType);
+            catch (DataConflictException ex)
+            {
+                return Conflict(new { Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+            }
         }
 
         [HttpPut]

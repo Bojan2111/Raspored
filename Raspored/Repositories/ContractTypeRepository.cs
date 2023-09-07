@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Raspored.CustomExceptions;
 using Raspored.Interfaces;
 using Raspored.Models;
 using System.Linq;
@@ -16,6 +17,10 @@ namespace Raspored.Repositories
 
         public void AddContractType(ContractType contractType)
         {
+            if (IsConflictDetected(contractType.Id))
+            {
+                throw new DataConflictException("A contract type with the same ID already exists.");
+            }
             _context.ContractTypes.Add(contractType);
             _context.SaveChanges();
         }
@@ -48,6 +53,11 @@ namespace Raspored.Repositories
             {
                 throw;
             }
+        }
+
+        public bool IsConflictDetected(int contractTypeId)
+        {
+            return _context.ContractTypes.Any(ct => ct.Id == contractTypeId);
         }
     }
 }
