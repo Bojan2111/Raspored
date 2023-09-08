@@ -23,17 +23,20 @@ namespace RasporedTest.Controllers
                 new TeamMemberRole()
                 {
                     Id = 1,
-                    Name = "Foo"
+                    Name = "Foo",
+                    Description = "Bar"
                 },
                 new TeamMemberRole()
                 {
                     Id = 2,
-                    Name = "Bar"
+                    Name = "Bar",
+                    Description = "Foo"
                 },
                 new TeamMemberRole()
                 {
                     Id = 3,
-                    Name = "Foobar"
+                    Name = "Foobar",
+                    Description = "FUBAR"
                 }
             };
 
