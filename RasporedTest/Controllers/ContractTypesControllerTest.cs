@@ -1,16 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Raspored.Controllers;
 using Raspored.CustomExceptions;
 using Raspored.Interfaces;
 using Raspored.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace RasporedTest.Controllers
@@ -43,6 +38,7 @@ namespace RasporedTest.Controllers
             mockRepository.Setup(x => x.GetAllContractTypes()).Returns(contractTypes.AsQueryable());
 
             var controller = new ContractTypesController(mockRepository.Object);
+
             var actionResult = controller.GetContractTypes() as OkObjectResult;
 
             Assert.NotNull(actionResult);

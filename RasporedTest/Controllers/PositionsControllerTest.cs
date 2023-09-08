@@ -4,11 +4,8 @@ using Raspored.Controllers;
 using Raspored.CustomExceptions;
 using Raspored.Interfaces;
 using Raspored.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace RasporedTest.Controllers
@@ -41,6 +38,7 @@ namespace RasporedTest.Controllers
             mockRepository.Setup(x => x.GetAllPositions()).Returns(positions.AsQueryable());
 
             var controller = new PositionsController(mockRepository.Object);
+
             var actionResult = controller.GetPositions() as OkObjectResult;
 
             Assert.NotNull(actionResult);

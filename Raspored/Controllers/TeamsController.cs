@@ -123,7 +123,7 @@ namespace Raspored.Controllers
 
         [HttpDelete]
         [Route("/teams/{id}")]
-        public IActionResult DeletePaket(int id)
+        public IActionResult DeleteTeam(int id)
         {
             var team = _teamRepository.GetTeam(id);
             if (team == null)

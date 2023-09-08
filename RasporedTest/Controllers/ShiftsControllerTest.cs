@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Moq;
 using Raspored.Controllers;
 using Raspored.CustomExceptions;
@@ -10,8 +9,6 @@ using Raspored.Models.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace RasporedTest.Controllers
@@ -58,10 +55,12 @@ namespace RasporedTest.Controllers
             };
             var mockRepository = new Mock<IShiftRepository>();
             mockRepository.Setup(x => x.GetAllShifts()).Returns(shiftsDTO.AsQueryable());
+
             var mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfile(new ShiftProfile()));
             IMapper mapper = new Mapper(mapperConfiguration);
 
             var controller = new ShiftsController(mockRepository.Object, mapper);
+
             var actionResult = controller.GetShifts() as OkObjectResult;
 
             Assert.NotNull(actionResult);
@@ -91,10 +90,12 @@ namespace RasporedTest.Controllers
                 
             var mockRepository = new Mock<IShiftRepository>();
             mockRepository.Setup(x => x.GetShift(1)).Returns(shiftDTO);
+
             var mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfile(new ShiftProfile()));
             IMapper mapper = new Mapper(mapperConfiguration);
 
             var controller = new ShiftsController(mockRepository.Object, mapper);
+
             var actionResult = controller.GetShift(1) as OkObjectResult;
 
             Assert.NotNull(actionResult);
@@ -123,10 +124,12 @@ namespace RasporedTest.Controllers
 
             var mockRepository = new Mock<IShiftRepository>();
             mockRepository.Setup(x => x.GetShift(1)).Returns(shiftDTO);
+
             var mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfile(new ShiftProfile()));
             IMapper mapper = new Mapper(mapperConfiguration);
 
             var controller = new ShiftsController(mockRepository.Object, mapper);
+
             var actionResult = controller.GetShift(123) as NotFoundResult;
 
             Assert.NotNull(actionResult);
@@ -181,6 +184,7 @@ namespace RasporedTest.Controllers
 
             var mockRepository = new Mock<IShiftRepository>();
             mockRepository.Setup(x => x.GetShiftById(1)).Returns(shift);
+
             var mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfile(new ShiftProfile()));
             IMapper mapper = new Mapper(mapperConfiguration);
 

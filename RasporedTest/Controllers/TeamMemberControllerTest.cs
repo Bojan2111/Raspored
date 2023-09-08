@@ -6,13 +6,9 @@ using Raspored.CustomExceptions;
 using Raspored.Interfaces;
 using Raspored.Models.DTOs;
 using Raspored.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
-using AutoMapper.QueryableExtensions;
 using Raspored.Models.Login;
 
 namespace RasporedTest.Controllers
@@ -98,6 +94,7 @@ namespace RasporedTest.Controllers
             mockRepository.Setup(x => x.GetAllTeamMembers()).Returns(teamMembers.AsQueryable());
 
             var controller = new TeamMemberController(mockRepository.Object, mapper);
+
             var actionResult = controller.GetMembers() as OkObjectResult;
 
             Assert.NotNull(actionResult);
@@ -143,10 +140,12 @@ namespace RasporedTest.Controllers
 
             var mockRepository = new Mock<ITeamMemberRepository>();
             mockRepository.Setup(x => x.GetTeamMember(1)).Returns(teamMemberDTO);
+
             var mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfile(new TeamMemberProfile()));
             IMapper mapper = new Mapper(mapperConfiguration);
 
             var controller = new TeamMemberController(mockRepository.Object, mapper);
+
             var actionResult = controller.GetTeamMember(1) as OkObjectResult;
 
             Assert.NotNull(actionResult);
@@ -192,10 +191,12 @@ namespace RasporedTest.Controllers
 
             var mockRepository = new Mock<ITeamMemberRepository>();
             mockRepository.Setup(x => x.GetTeamMember(1)).Returns(teamMemberDTO);
+
             var mapperConfiguration = new MapperConfiguration(cfg => cfg.AddProfile(new TeamMemberProfile()));
             IMapper mapper = new Mapper(mapperConfiguration);
 
             var controller = new TeamMemberController(mockRepository.Object, mapper);
+
             var actionResult = controller.GetTeamMember(123) as NotFoundResult;
 
             Assert.NotNull(actionResult);

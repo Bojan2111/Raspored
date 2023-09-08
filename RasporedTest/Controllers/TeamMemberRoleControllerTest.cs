@@ -4,11 +4,8 @@ using Raspored.Controllers;
 using Raspored.CustomExceptions;
 using Raspored.Interfaces;
 using Raspored.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace RasporedTest.Controllers
@@ -44,6 +41,7 @@ namespace RasporedTest.Controllers
             mockRepository.Setup(x => x.GetAllTeamMemberRoles()).Returns(teamMemberRoles.AsQueryable());
 
             var controller = new TeamMemberRoleController(mockRepository.Object);
+
             var actionResult = controller.GetTeamMemberRoles() as OkObjectResult;
 
             Assert.NotNull(actionResult);
