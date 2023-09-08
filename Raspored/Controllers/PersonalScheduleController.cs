@@ -18,11 +18,15 @@ namespace Raspored.Controllers
             _scheduleRepository = scheduleRepository;
         }
 
-        [AllowAnonymous]
+        //[Authorize(Roles = "admin,zaposleni")]
         [HttpGet("/personal-schedule/{teamMemberId}")]
         public IActionResult GetPersonalSchedule(int teamMemberId)
         {
-            PersonalSchedule personalSchedule = _scheduleRepository.GetPersonalSchedule(teamMemberId);
+            var personalSchedule = _scheduleRepository.GetPersonalSchedule(teamMemberId);
+            if (personalSchedule == null)
+            {
+                return NotFound();
+            }
             return Ok(personalSchedule);
         }
     }
