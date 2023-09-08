@@ -18,7 +18,7 @@ namespace Raspored.Controllers
             _scheduleRepository = scheduleRepository;
         }
 
-        //[Authorize(Roles = "admin,zaposleni")]
+        [Authorize]
         [HttpGet("/personal-schedule/{teamMemberId}")]
         public IActionResult GetPersonalSchedule(int teamMemberId)
         {

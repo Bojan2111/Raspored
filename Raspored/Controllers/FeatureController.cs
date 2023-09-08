@@ -23,9 +23,9 @@ namespace Raspored.Controllers
 
         [HttpGet("/role-features")]
         [Authorize]
-        public async Task<IActionResult> ListFeatures()
+        public IActionResult ListFeatures()
         {
-            _ = await _userManager.GetUserAsync(User);
+            _ = _userManager.GetUserAsync(User);
 
             if (User.IsInRole("admin"))
             {
