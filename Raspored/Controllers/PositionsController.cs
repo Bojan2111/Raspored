@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Raspored.CustomExceptions;
 using Raspored.Interfaces;
 using Raspored.Models;
-using Raspored.Repositories;
 using System;
 
 namespace Raspored.Controllers
 {
+    [Authorize(Roles = "admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class PositionsController : ControllerBase

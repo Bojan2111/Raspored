@@ -86,7 +86,7 @@ namespace Raspored.Controllers
         }
 
         [HttpPost]
-        [Authorize("admin")]
+        [Authorize(Roles = "admin")]
         [Route("/register")]
         public async Task<IActionResult> Register(RegistrationDTO model)
         {
@@ -169,8 +169,6 @@ namespace Raspored.Controllers
             {
                 return NotFound("User not found");
             }
-
-            // Restrict updatable fields by checking the properties of `updatedUserData`.
 
             user.FirstName = updatedUserData.FirstName;
             user.LastName = updatedUserData.LastName;

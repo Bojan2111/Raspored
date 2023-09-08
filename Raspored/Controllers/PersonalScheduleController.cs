@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Raspored.Interfaces;
-using Raspored.Models.DTOs;
-using Raspored.Repositories;
 
 namespace Raspored.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PersonalScheduleController : ControllerBase
@@ -18,7 +16,6 @@ namespace Raspored.Controllers
             _scheduleRepository = scheduleRepository;
         }
 
-        [Authorize]
         [HttpGet("/personal-schedule/{teamMemberId}")]
         public IActionResult GetPersonalSchedule(int teamMemberId)
         {

@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Routing.Constraints;
 using Raspored.Models.Login;
-using System;
 using System.Collections.Generic;
 
 namespace Raspored.Models.DTOs

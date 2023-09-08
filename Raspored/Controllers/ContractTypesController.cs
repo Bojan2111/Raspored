@@ -1,15 +1,13 @@
 ﻿using System;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Raspored.CustomExceptions;
 using Raspored.Interfaces;
 using Raspored.Models;
-using Raspored.Repositories;
 
 namespace Raspored.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class ContractTypesController : ControllerBase
@@ -24,7 +22,6 @@ namespace Raspored.Controllers
 
 
         [HttpGet]
-        [Authorize(Roles = "admin")]
         [Route("/contract-types")]
         public IActionResult GetContractTypes()
         {
@@ -33,7 +30,6 @@ namespace Raspored.Controllers
 
 
         [HttpGet]
-        [Authorize(Roles = "admin")]
         [Route("/contract-types/{id}")]
         public IActionResult GetContractType(int id)
         {
@@ -48,7 +44,6 @@ namespace Raspored.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
         [Route("/contract-types")]
         public IActionResult PostContractType([FromBody] ContractType contractType)
         {
@@ -78,7 +73,6 @@ namespace Raspored.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "admin")]
         [Route("/contract-types/{id}")]
         public IActionResult PutContractType(int id, ContractType contractType)
         {
@@ -105,7 +99,6 @@ namespace Raspored.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Roles = "admin")]
         [Route("/contract-types/{id}")]
         public IActionResult DeleteContractType(int id)
         {

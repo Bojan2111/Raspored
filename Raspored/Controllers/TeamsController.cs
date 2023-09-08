@@ -1,15 +1,10 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Raspored.CustomExceptions;
 using Raspored.Interfaces;
 using Raspored.Models;
-using Raspored.Models.DTOs;
-using Raspored.Repositories;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Raspored.Controllers
 {
@@ -27,6 +22,7 @@ namespace Raspored.Controllers
             _mapper = mapper;
         }
 
+        [Authorize]
         [HttpGet]
         [Route("/teams")]
         public IActionResult GetTeams()
@@ -35,6 +31,7 @@ namespace Raspored.Controllers
             return Ok(teams);
         }
 
+        [Authorize]
         [HttpGet]
         [Route("/teams/{id}")]
         public IActionResult GetTeam(int id)
@@ -47,6 +44,7 @@ namespace Raspored.Controllers
             return Ok(team);
         }
 
+        [Authorize]
         [HttpGet]
         [Route("/teams-with-members")]
         public IActionResult GetTeamsWithMembers()
@@ -54,6 +52,7 @@ namespace Raspored.Controllers
             return Ok(_teamRepository.GetTeamsWithMembers());
         }
 
+        [Authorize]
         [HttpGet]
         [Route("/teams-with-members/{id}")]
         public IActionResult GetTeamWithMembers(int id)
@@ -66,6 +65,7 @@ namespace Raspored.Controllers
             return Ok(team);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [Route("/teams")]
         public IActionResult PostTeam([FromBody] Team team)
@@ -95,6 +95,7 @@ namespace Raspored.Controllers
             }
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPut]
         [Route("/teams/{id}")]
         public IActionResult PutTeam(int id, Team team)
@@ -121,6 +122,7 @@ namespace Raspored.Controllers
             return Ok(team);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpDelete]
         [Route("/teams/{id}")]
         public IActionResult DeleteTeam(int id)

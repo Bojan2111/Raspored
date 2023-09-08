@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Raspored.CustomExceptions;
 using Raspored.Interfaces;
 using Raspored.Models;
 using Raspored.Models.DTOs;
-using Raspored.Repositories;
 using System;
 
 namespace Raspored.Controllers
@@ -25,6 +24,7 @@ namespace Raspored.Controllers
             _mapper = mapper;
         }
 
+        [Authorize]
         [HttpGet]
         [Route("/team-members")]
         public ActionResult GetMembers()
@@ -32,6 +32,7 @@ namespace Raspored.Controllers
             return Ok(_teamMemberRepository.GetAllTeamMembers().ProjectTo<TeamMemberDTO>(_mapper.ConfigurationProvider));
         }
 
+        [Authorize]
         [HttpGet]
         [Route("/team-members/{id}")]
         public ActionResult GetTeamMember(int id)
@@ -44,6 +45,7 @@ namespace Raspored.Controllers
             return Ok(teamMember);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [Route("/team-members")]
         public IActionResult PostTeamMember([FromBody] TeamMember teamMember)
@@ -73,6 +75,7 @@ namespace Raspored.Controllers
             }
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPut]
         [Route("/team-members/{id}")]
         public IActionResult PutTeamMember(int id, TeamMember teamMember)
@@ -99,6 +102,7 @@ namespace Raspored.Controllers
             return Ok(teamMember);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpDelete]
         [Route("/team-members/{id}")]
         public IActionResult DeleteTeamMember(int id)

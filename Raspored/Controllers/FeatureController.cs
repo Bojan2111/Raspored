@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Raspored.Interfaces;
 using Raspored.Models.Login;
-using System.Threading.Tasks;
 
 namespace Raspored.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class FeatureController : ControllerBase
@@ -22,7 +21,6 @@ namespace Raspored.Controllers
         }
 
         [HttpGet("/role-features")]
-        [Authorize]
         public IActionResult ListFeatures()
         {
             _ = _userManager.GetUserAsync(User);

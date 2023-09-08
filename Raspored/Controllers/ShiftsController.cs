@@ -1,14 +1,10 @@
 ﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Raspored.CustomExceptions;
 using Raspored.Interfaces;
 using Raspored.Models;
-using Raspored.Models.DTOs;
-using Raspored.Repositories;
 using System;
-using System.Linq;
 
 namespace Raspored.Controllers
 {
@@ -25,6 +21,7 @@ namespace Raspored.Controllers
             _mapper = mapper;
         }
 
+        [Authorize]
         [HttpGet]
         [Route("/shifts")]
         public IActionResult GetShifts()
@@ -32,6 +29,7 @@ namespace Raspored.Controllers
             return Ok(_shiftRepository.GetAllShifts());
         }
 
+        [Authorize]
         [HttpGet]
         [Route("/shifts/{id}")]
         public IActionResult GetShift(int id)
@@ -44,6 +42,7 @@ namespace Raspored.Controllers
             return Ok(shift);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [Route("/shifts")]
         public IActionResult PostShift([FromBody] Shift shift)
@@ -73,6 +72,7 @@ namespace Raspored.Controllers
             }
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPut]
         [Route("/shifts/{id}")]
         public IActionResult PutShift(int id, Shift shift)
@@ -99,6 +99,7 @@ namespace Raspored.Controllers
             return Ok(shift);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpDelete]
         [Route("/shifts/{id}")]
         public IActionResult DeleteShift(int id)

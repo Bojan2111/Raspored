@@ -1,10 +1,8 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Raspored.CustomExceptions;
 using Raspored.Interfaces;
 using Raspored.Models;
-using Raspored.Repositories;
 using System;
 
 namespace Raspored.Controllers
@@ -21,6 +19,7 @@ namespace Raspored.Controllers
             _teamMemberRoleRepository = teamMemberRoleRepository;
         }
 
+        [Authorize]
         [HttpGet]
         [Route("/team-member-roles")]
         public IActionResult GetTeamMemberRoles()
@@ -28,6 +27,7 @@ namespace Raspored.Controllers
             return Ok(_teamMemberRoleRepository.GetAllTeamMemberRoles());
         }
 
+        [Authorize]
         [HttpGet]
         [Route("/team-member-roles/{id}")]
         public IActionResult GetTeamMemberRole(int id)
@@ -40,6 +40,7 @@ namespace Raspored.Controllers
             return Ok(teamMemberRole);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [Route("/team-member-roles")]
         public IActionResult PostTeamMemberRole([FromBody] TeamMemberRole teamMemberRole)
@@ -69,6 +70,7 @@ namespace Raspored.Controllers
             }
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPut]
         [Route("/team-member-roles/{id}")]
         public IActionResult PutTeamMemberRole(int id, TeamMemberRole teamMemberRole)
@@ -95,6 +97,7 @@ namespace Raspored.Controllers
             return Ok(teamMemberRole);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpDelete]
         [Route("/team-member-roles/{id}")]
         public IActionResult DeleteTeamMemberRole(int id)
