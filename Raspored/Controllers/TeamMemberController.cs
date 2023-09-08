@@ -2,10 +2,12 @@
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Raspored.CustomExceptions;
 using Raspored.Interfaces;
 using Raspored.Models;
 using Raspored.Models.DTOs;
 using Raspored.Repositories;
+using System;
 
 namespace Raspored.Controllers
 {
@@ -46,14 +48,37 @@ namespace Raspored.Controllers
         [Route("/team-members")]
         public IActionResult PostTeamMember([FromBody] TeamMember teamMember)
         {
-            if (!ModelState.IsValid)
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
+
+            //_teamMemberRepository.AddTeamMember(teamMember);
+
+            //return CreatedAtAction("GetTeamMember", new { id = teamMember.Id }, teamMember);
+            try
             {
-                return BadRequest(ModelState);
+                if (_teamMemberRepository.IsConflictDetected(teamMember.Id))
+                {
+                    throw new DataConflictException("A team member with the same ID already exists.");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                _teamMemberRepository.AddTeamMember(teamMember);
+
+                return CreatedAtAction("GetTeamMember", new { id = teamMember.Id }, teamMember);
             }
-
-            _teamMemberRepository.AddTeamMember(teamMember);
-
-            return CreatedAtAction("GetTeamMember", new { id = teamMember.Id }, teamMember);
+            catch (DataConflictException ex)
+            {
+                return Conflict(new { ex.Message });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+            }
         }
 
         [HttpPut]

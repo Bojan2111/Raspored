@@ -10,5 +10,6 @@ namespace Raspored.Interfaces
         void AddPosition(Position position);
         void UpdatePosition(Position position);
         void DeletePosition(Position position);
+        bool IsConflictDetected(int positionId);
     }
 }

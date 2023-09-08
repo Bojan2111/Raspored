@@ -2,6 +2,7 @@
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Raspored.CustomExceptions;
 using Raspored.Interfaces;
 using Raspored.Models;
 using Raspored.Models.DTOs;
@@ -21,6 +22,10 @@ namespace Raspored.Repositories
         }
         public void AddShift(Shift shift)
         {
+            if (IsConflictDetected(shift.Id))
+            {
+                throw new DataConflictException("A shift with the same ID already exists.");
+            }
             _context.Shifts.Add(shift);
             _context.SaveChanges();
         }
@@ -61,6 +66,11 @@ namespace Raspored.Repositories
             {
                 throw;
             }
+        }
+
+        public bool IsConflictDetected(int shiftId)
+        {
+            return _context.Shifts.Any(ct => ct.Id == shiftId);
         }
     }
 }

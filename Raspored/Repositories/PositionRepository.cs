@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Raspored.CustomExceptions;
 using Raspored.Interfaces;
 using Raspored.Models;
 using System.Linq;
@@ -16,6 +17,10 @@ namespace Raspored.Repositories
 
         public void AddPosition(Position position)
         {
+            if (IsConflictDetected(position.Id))
+            {
+                throw new DataConflictException("A position with the same ID already exists.");
+            }
             _context.Positions.Add(position);
             _context.SaveChanges();
         }
@@ -48,6 +53,11 @@ namespace Raspored.Repositories
             {
                 throw;
             }
+        }
+
+        public bool IsConflictDetected(int positionId)
+        {
+            return _context.Positions.Any(ct => ct.Id == positionId);
         }
     }
 }

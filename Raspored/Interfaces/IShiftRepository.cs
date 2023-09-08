@@ -12,5 +12,6 @@ namespace Raspored.Interfaces
         void AddShift(Shift shift);
         void UpdateShift(Shift shift);
         void DeleteShift(Shift shift);
+        bool IsConflictDetected(int shiftId);
     }
 }

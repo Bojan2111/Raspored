@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Raspored.CustomExceptions;
 using Raspored.Interfaces;
 using Raspored.Models;
 using System.Linq;
@@ -15,6 +16,10 @@ namespace Raspored.Repositories
         }
         public void AddTeamMemberRole(TeamMemberRole teamMemberRole)
         {
+            if (IsConflictDetected(teamMemberRole.Id))
+            {
+                throw new DataConflictException("A team member role with the same ID already exists.");
+            }
             _context.TeamMemberRoles.Add(teamMemberRole);
             _context.SaveChanges();
         }
@@ -47,6 +52,10 @@ namespace Raspored.Repositories
             {
                 throw;
             }
+        }
+        public bool IsConflictDetected(int teamMemberRoleId)
+        {
+            return _context.TeamMemberRoles.Any(ct => ct.Id == teamMemberRoleId);
         }
     }
 }

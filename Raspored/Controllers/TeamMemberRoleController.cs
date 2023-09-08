@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Raspored.CustomExceptions;
 using Raspored.Interfaces;
 using Raspored.Models;
 using Raspored.Repositories;
+using System;
 
 namespace Raspored.Controllers
 {
@@ -12,13 +14,11 @@ namespace Raspored.Controllers
     public class TeamMemberRoleController : ControllerBase
     {
         private readonly ITeamMemberRoleRepository _teamMemberRoleRepository;
-        private readonly IMapper _mapper;
 
 
-        public TeamMemberRoleController(ITeamMemberRoleRepository teamMemberRoleRepository, IMapper mapper)
+        public TeamMemberRoleController(ITeamMemberRoleRepository teamMemberRoleRepository)
         {
             _teamMemberRoleRepository = teamMemberRoleRepository;
-            _mapper = mapper;
         }
 
         [HttpGet]
@@ -37,21 +37,44 @@ namespace Raspored.Controllers
             {
                 return NotFound();
             }
-            return Ok();
+            return Ok(teamMemberRole);
         }
 
         [HttpPost]
         [Route("/team-member-roles")]
         public IActionResult PostTeamMemberRole([FromBody] TeamMemberRole teamMemberRole)
         {
-            if (!ModelState.IsValid)
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
+
+            //_teamMemberRoleRepository.AddTeamMemberRole(teamMemberRole);
+
+            //return CreatedAtAction("GetTeamMemberRole", new { id = teamMemberRole.Id }, teamMemberRole);
+            try
             {
-                return BadRequest(ModelState);
+                if (_teamMemberRoleRepository.IsConflictDetected(teamMemberRole.Id))
+                {
+                    throw new DataConflictException("A team member role with the same ID already exists.");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                _teamMemberRoleRepository.AddTeamMemberRole(teamMemberRole);
+
+                return CreatedAtAction("GetTeamMemberRole", new { id = teamMemberRole.Id }, teamMemberRole);
             }
-
-            _teamMemberRoleRepository.AddTeamMemberRole(teamMemberRole);
-
-            return CreatedAtAction("GetTeamMemberRole", new { id = teamMemberRole.Id }, teamMemberRole);
+            catch (DataConflictException ex)
+            {
+                return Conflict(new { ex.Message });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+            }
         }
 
         [HttpPut]

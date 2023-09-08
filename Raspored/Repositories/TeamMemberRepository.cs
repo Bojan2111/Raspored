@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
+using Raspored.CustomExceptions;
 using Raspored.Interfaces;
 using Raspored.Models;
 using Raspored.Models.DTOs;
@@ -21,6 +22,10 @@ namespace Raspored.Repositories
 
         public void AddTeamMember(TeamMember teamMember)
         {
+            if (IsConflictDetected(teamMember.Id))
+            {
+                throw new DataConflictException("A team member with the same ID already exists.");
+            }
             _context.TeamMembers.Add(teamMember);
             _context.SaveChanges();
         }
@@ -63,6 +68,10 @@ namespace Raspored.Repositories
             {
                 throw;
             }
+        }
+        public bool IsConflictDetected(int teamMemberId)
+        {
+            return _context.TeamMembers.Any(ct => ct.Id == teamMemberId);
         }
     }
 }

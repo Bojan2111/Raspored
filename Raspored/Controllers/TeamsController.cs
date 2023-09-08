@@ -2,9 +2,12 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Raspored.CustomExceptions;
 using Raspored.Interfaces;
 using Raspored.Models;
 using Raspored.Models.DTOs;
+using Raspored.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -67,14 +70,37 @@ namespace Raspored.Controllers
         [Route("/teams")]
         public IActionResult PostTeam([FromBody] Team team)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            
-            _teamRepository.AddTeam(team);
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
 
-            return CreatedAtAction("GetTeam", new { id = team.Id }, team);
+            //_teamRepository.AddTeam(team);
+
+            //return CreatedAtAction("GetTeam", new { id = team.Id }, team);
+            try
+            {
+                if (_teamRepository.IsConflictDetected(team.Id))
+                {
+                    throw new DataConflictException("A team with the same ID already exists.");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                _teamRepository.AddTeam(team);
+
+                return CreatedAtAction("GetTeam", new { id = team.Id }, team);
+            }
+            catch (DataConflictException ex)
+            {
+                return Conflict(new { ex.Message });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+            }
         }
 
         [HttpPut]

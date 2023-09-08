@@ -10,5 +10,6 @@ namespace Raspored.Interfaces
         void AddTeamMemberRole(TeamMemberRole teamMemberRole);
         void UpdateTeamMemberRole(TeamMemberRole teamMemberRole);
         void DeleteTeamMemberRole(TeamMemberRole teamMemberRole);
+        bool IsConflictDetected(int teamMemberRoleId);
     }
 }

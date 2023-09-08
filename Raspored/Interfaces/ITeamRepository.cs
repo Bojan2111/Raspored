@@ -13,5 +13,6 @@ namespace Raspored.Interfaces
         void AddTeam(Team team);
         void UpdateTeam(Team team);
         void DeleteTeam(Team team);
+        bool IsConflictDetected(int teamId);
     }
 }

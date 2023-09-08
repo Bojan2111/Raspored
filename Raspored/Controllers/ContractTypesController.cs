@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Raspored.CustomExceptions;
@@ -8,6 +9,7 @@ using Raspored.Repositories;
 
 namespace Raspored.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ContractTypesController : ControllerBase
@@ -22,6 +24,7 @@ namespace Raspored.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         [Route("/contract-types")]
         public IActionResult GetContractTypes()
         {
@@ -30,6 +33,7 @@ namespace Raspored.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         [Route("/contract-types/{id}")]
         public IActionResult GetContractType(int id)
         {
@@ -44,6 +48,7 @@ namespace Raspored.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         [Route("/contract-types")]
         public IActionResult PostContractType([FromBody] ContractType contractType)
         {
@@ -64,15 +69,16 @@ namespace Raspored.Controllers
             }
             catch (DataConflictException ex)
             {
-                return Conflict(new { Message = ex.Message });
+                return Conflict(new { ex.Message });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return StatusCode(500, new { Message = "An error occurred while processing your request." });
             }
         }
 
         [HttpPut]
+        [Authorize(Roles = "admin")]
         [Route("/contract-types/{id}")]
         public IActionResult PutContractType(int id, ContractType contractType)
         {
@@ -99,6 +105,7 @@ namespace Raspored.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "admin")]
         [Route("/contract-types/{id}")]
         public IActionResult DeleteContractType(int id)
         {

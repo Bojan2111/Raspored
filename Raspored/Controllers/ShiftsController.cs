@@ -2,10 +2,12 @@
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Raspored.CustomExceptions;
 using Raspored.Interfaces;
 using Raspored.Models;
 using Raspored.Models.DTOs;
 using Raspored.Repositories;
+using System;
 using System.Linq;
 
 namespace Raspored.Controllers
@@ -46,14 +48,37 @@ namespace Raspored.Controllers
         [Route("/shifts")]
         public IActionResult PostShift([FromBody] Shift shift)
         {
-            if (!ModelState.IsValid)
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
+
+            //_shiftRepository.AddShift(shift);
+
+            //return CreatedAtAction("GetShift", new { id = shift.Id }, shift);
+            try
             {
-                return BadRequest(ModelState);
+                if (_shiftRepository.IsConflictDetected(shift.Id))
+                {
+                    throw new DataConflictException("A shift with the same ID already exists.");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                _shiftRepository.AddShift(shift);
+
+                return CreatedAtAction("GetShift", new { id = shift.Id }, shift);
             }
-
-            _shiftRepository.AddShift(shift);
-
-            return CreatedAtAction("GetShift", new { id = shift.Id }, shift);
+            catch (DataConflictException ex)
+            {
+                return Conflict(new { ex.Message });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+            }
         }
 
         [HttpPut]
