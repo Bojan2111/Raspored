@@ -48,14 +48,6 @@ namespace Raspored.Controllers
         [Route("/team-members")]
         public IActionResult PostTeamMember([FromBody] TeamMember teamMember)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest(ModelState);
-            //}
-
-            //_teamMemberRepository.AddTeamMember(teamMember);
-
-            //return CreatedAtAction("GetTeamMember", new { id = teamMember.Id }, teamMember);
             try
             {
                 if (_teamMemberRepository.IsConflictDetected(teamMember.Id))

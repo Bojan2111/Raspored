@@ -44,14 +44,6 @@ namespace Raspored.Controllers
         [Route("/team-member-roles")]
         public IActionResult PostTeamMemberRole([FromBody] TeamMemberRole teamMemberRole)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest(ModelState);
-            //}
-
-            //_teamMemberRoleRepository.AddTeamMemberRole(teamMemberRole);
-
-            //return CreatedAtAction("GetTeamMemberRole", new { id = teamMemberRole.Id }, teamMemberRole);
             try
             {
                 if (_teamMemberRoleRepository.IsConflictDetected(teamMemberRole.Id))

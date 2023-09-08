@@ -18,20 +18,9 @@ namespace RasporedTest.Controllers
 {
     public class ShiftsControllerTest
     {
-        //private readonly IConfiguration _configuration;
-        //private readonly Mock<IShiftRepository>() _shiftRepository;
-        //private readonly IMapper _mapper;
-        //public ShiftsControllerTest(IConfiguration configuration, IShiftRepository shiftRepository, IMapper mapper)
-        //{
-        //    _configuration = configuration;
-        //    _shiftRepository = shiftRepository;
-        //    _mapper = mapper;
-        //}
-
         [Fact]
         public void GetShifts_ReturnsDTOCollection()
         {
-            //var config = new ConfigurationBuilder(); // Pogledaj dokumentaciju pa primeni za autorizaciju
             var shifts = new List<Shift>()
             {
                 new Shift()

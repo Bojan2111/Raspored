@@ -48,14 +48,6 @@ namespace Raspored.Controllers
         [Route("/shifts")]
         public IActionResult PostShift([FromBody] Shift shift)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest(ModelState);
-            //}
-
-            //_shiftRepository.AddShift(shift);
-
-            //return CreatedAtAction("GetShift", new { id = shift.Id }, shift);
             try
             {
                 if (_shiftRepository.IsConflictDetected(shift.Id))
