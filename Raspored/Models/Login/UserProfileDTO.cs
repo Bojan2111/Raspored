@@ -13,5 +13,10 @@ namespace Raspored.Models.Login
         public string LicenseNumber { get; set; }
         public int ContractTypeId { get; set; }
         public int PositionId { get; set; }
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string ZipCode { get; set; }
+        public string PhoneNumber { get; set; }
+        public string ReligiousHoliday { get; set; }
     }
 }

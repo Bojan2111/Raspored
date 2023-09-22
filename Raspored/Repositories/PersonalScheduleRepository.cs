@@ -35,13 +35,13 @@ namespace Raspored.Repositories
             throw new System.NotImplementedException();
         }
         
-        public PersonalSchedule GetPersonalSchedule(int teamMemberId)
+        public PersonalSchedule GetPersonalSchedule(int teamMemberId, int month)
         {
             TeamMember teamMember = _context.TeamMembers.FirstOrDefault(x => x.Id == teamMemberId);
             Team team = _context.Teams.FirstOrDefault(x => x.Id == teamMember.TeamId);
             ApplicationUser user = _context.Users.FirstOrDefault(x => x.Id == teamMember.UserId);
             TeamMemberRole teamMemberRole = _context.TeamMemberRoles.FirstOrDefault(x => x.Id == teamMember.TeamMemberRoleId);
-            List<Shift> shifts = _context.Shifts.Include(s => s.ShiftType).Where(x => x.TeamMemberId == teamMemberId).ToList();
+            List<Shift> shifts = _context.Shifts.Include(s => s.ShiftType).Where(x => x.TeamMemberId == teamMemberId && x.Month == month).ToList();
             string monthName = shifts[0].Date.ToString("MMMM").ToUpper();
 
             PersonalSchedule personalSchedule = _mapper.Map<TeamMember, PersonalSchedule>(teamMember);

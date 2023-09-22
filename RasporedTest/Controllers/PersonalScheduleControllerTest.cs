@@ -120,11 +120,11 @@ namespace RasporedTest.Controllers
             };
 
             var mockRepository = new Mock<IPersonalScheduleRepository>();
-            mockRepository.Setup(x => x.GetPersonalSchedule(1)).Returns(personalSchedule);
+            mockRepository.Setup(x => x.GetPersonalSchedule(1, 8)).Returns(personalSchedule);
 
             var controller = new PersonalScheduleController(mockRepository.Object);
 
-            var actionResult = controller.GetPersonalSchedule(1) as OkObjectResult;
+            var actionResult = controller.GetPersonalSchedule(1, 8) as OkObjectResult;
 
             Assert.NotNull(actionResult);
             Assert.Equal(200, actionResult.StatusCode);
@@ -138,7 +138,7 @@ namespace RasporedTest.Controllers
 
             var controller = new PersonalScheduleController(mockRepository.Object);
 
-            var actionResult = controller.GetPersonalSchedule(112) as NotFoundResult;
+            var actionResult = controller.GetPersonalSchedule(112, 4) as NotFoundResult;
 
             Assert.NotNull(actionResult);
             Assert.Equal(404, actionResult.StatusCode);

@@ -5,6 +5,7 @@ namespace Raspored.Models
     public class Shift
     {
         public int Id { get; set; }
+        public int Month { get; set; }
         public DateTime Date { get; set; }
         public int ShiftTypeId { get; set; }
         public ShiftType ShiftType { get; set; }

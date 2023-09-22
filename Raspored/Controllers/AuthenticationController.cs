@@ -100,7 +100,12 @@ namespace Raspored.Controllers
                 YearOfEmployment = model.YearOfEmployment,
                 LicenseNumber = model.LicenseNumber,
                 ContractTypeId = model.ContractTypeId,
-                PositionId = model.PositionId
+                PositionId = model.PositionId,
+                Address = model.Address,
+                City = model.City,
+                ZipCode = model.ZipCode,
+                PhoneNumber = model.PhoneNumber,
+                ReligiousHoliday = model.ReligiousHoliday
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
@@ -179,6 +184,11 @@ namespace Raspored.Controllers
             user.LicenseNumber = updatedUserData.LicenseNumber;
             user.ContractTypeId = updatedUserData.ContractTypeId;
             user.PositionId = updatedUserData.PositionId;
+            user.Address = updatedUserData.Address;
+            user.City = updatedUserData.City;
+            user.ZipCode = updatedUserData.ZipCode;
+            user.PhoneNumber = updatedUserData.PhoneNumber;
+            user.ReligiousHoliday = updatedUserData.ReligiousHoliday;
 
             var result = await _userManager.UpdateAsync(user);
 
