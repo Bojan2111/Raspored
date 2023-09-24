@@ -5,6 +5,6 @@ namespace Raspored.Interfaces
 {
     public interface IFeatureRepository
     {
-        IEnumerable<Feature> GetFeaturesForRole(string roleName);
+        IEnumerable<Feature> GetFeaturesForRole(string roleName, int featureTypeId);
     }
 }

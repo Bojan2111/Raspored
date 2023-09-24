@@ -31,6 +31,14 @@ namespace Raspored.Controllers
 
         [Authorize]
         [HttpGet]
+        [Route("/shifts/month")]
+        public IActionResult GetShiftsInMonth(int month)
+        {
+            return Ok(_shiftRepository.GetShiftsByMonth(month));
+        }
+
+        [Authorize]
+        [HttpGet]
         [Route("/shifts/{id}")]
         public IActionResult GetShift(int id)
         {

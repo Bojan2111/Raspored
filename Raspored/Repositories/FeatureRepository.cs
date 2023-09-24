@@ -14,10 +14,10 @@ namespace Raspored.Repositories
             _context = context;
         }
 
-        public IEnumerable<Feature> GetFeaturesForRole(string roleName)
+        public IEnumerable<Feature> GetFeaturesForRole(string roleName, int featureTypeId)
         {
             var features = _context.RoleFeatureMappings
-                .Where(rf => rf.Role.Name == roleName)
+                .Where(rf => rf.Role.Name == roleName & rf.FeatureTypeId == featureTypeId)
                 .Select(rf => rf.Feature)
                 .ToList();
 

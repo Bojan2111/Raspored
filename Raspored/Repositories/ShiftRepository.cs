@@ -40,6 +40,11 @@ namespace Raspored.Repositories
             return _context.Shifts.AsQueryable().ProjectTo<ShiftDTO>(_mapper.ConfigurationProvider);
         }
 
+        public IQueryable GetShiftsByMonth(int month)
+        {
+            return _context.Shifts.Where(shift =>  shift.Month == month).AsQueryable().ProjectTo<ShiftDTO>(_mapper.ConfigurationProvider);
+        }
+
         public ShiftDTO GetShift(int id)
         {
             return _context.Shifts
