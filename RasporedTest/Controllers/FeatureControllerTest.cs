@@ -41,7 +41,7 @@ namespace RasporedTest.Controllers
             };
 
             var mockRepository = new Mock<IFeatureRepository>();
-            mockRepository.Setup(x => x.GetFeaturesForRole("admin")).Returns(features.AsQueryable());
+            mockRepository.Setup(x => x.GetFeaturesForRole("admin", 1)).Returns(features.AsQueryable());
 
             var userRoles = new List<string> { "admin" };
 
@@ -59,7 +59,7 @@ namespace RasporedTest.Controllers
                 HttpContext = new DefaultHttpContext { User = user }
             };
 
-            var actionResult = controller.ListFeatures() as OkObjectResult;
+            var actionResult = controller.ListFeatures(1) as OkObjectResult;
 
             Assert.NotNull(actionResult);
             Assert.NotNull(actionResult.Value);
