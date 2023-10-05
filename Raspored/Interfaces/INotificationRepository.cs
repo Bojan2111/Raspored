@@ -5,7 +5,7 @@ namespace Raspored.Interfaces
 {
     public interface INotificationRepository
     {
-        IQueryable<NotificationDTO> GetAllNotifications();
+        IQueryable<NotificationDTO> GetNotifications();
         NotificationDTO GetNotification(int notificationId);
         void AddNotification(NotificationDTO notification);
         void UpdateNotification(NotificationDTO notification);

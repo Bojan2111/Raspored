@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Raspored.CustomExceptions;
 using Raspored.Interfaces;
 using Raspored.Models;
 using Raspored.Models.DTOs;
 using Raspored.Models.Login;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Raspored.Repositories
@@ -12,18 +14,15 @@ namespace Raspored.Repositories
     public class NotificationRepository : INotificationRepository
     {
         private readonly AppDbContext _context;
-        public NotificationRepository(AppDbContext context)
+        private readonly IMapper _mapper;
+        public NotificationRepository(AppDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public void AddNotification(NotificationDTO notification)
         {
-            if (IsConflictDetected(notification.Id))
-            {
-                throw new DataConflictException("A notification with the same ID already exists.");
-            }
-
             var notificationModel = new Notification()
             {
                 Title = notification.Title,
@@ -31,14 +30,16 @@ namespace Raspored.Repositories
                 Unread = notification.Unread
             };
 
+            _context.Notifications.Add(notificationModel);
+            _context.SaveChanges();
+
             var userNotificationMapping = new NotificationMapping()
             {
-                SenderId = GetUserIdFromFullName(notification.Sender),
-                ReceiverId = GetUserIdFromFullName(notification.Receiver),
-                NotificationId = notification.Id,
+                SenderId = notification.SenderId,
+                ReceiverId = notification.ReceiverId,
+                NotificationId = notificationModel.Id
             };
 
-            _context.Notifications.Add(notificationModel);
             _context.NotificationMappings.Add(userNotificationMapping);
             _context.SaveChanges();
         }
@@ -66,19 +67,50 @@ namespace Raspored.Repositories
             _context.SaveChanges();
         }
 
-        public IQueryable<NotificationDTO> GetAllNotifications()
+        public NotificationDTO GetNotification(int notificationId)
         {
-            return _context.Notifications.AsQueryable();
+            var notification = _context.NotificationMappings
+                .Include(nm => nm.Notification)
+                .Include(nm => nm.Sender)
+                .Include(nm => nm.Receiver)
+                .FirstOrDefault(n => n.Id == notificationId);
+
+            if (notification == null)
+            {
+                throw new Exception($"Notification with ID {notificationId} cannot be found!");
+            }
+
+            return _mapper.Map<NotificationDTO>(notification);
         }
 
-        public Notification GetNotification(int notificationId)
+        public IQueryable<NotificationDTO> GetNotifications()
         {
-            return _context.Notifications.FirstOrDefault(x => x.Id == notificationId);
+            var notifications = _context.NotificationMappings
+                .Include(nm => nm.Notification)
+                .Include(nm => nm.Sender)
+                .Include(nm => nm.Receiver);
+
+            return _mapper.Map<IEnumerable<NotificationDTO>>(notifications).AsQueryable();
         }
 
-        public void UpdateNotification(Notification notification)
+        public void UpdateNotification(NotificationDTO notification)
         {
-            _context.Entry(notification).State = EntityState.Modified;
+            var notificationModel = _context.Notifications.FirstOrDefault(x => x.Id == notification.Id);
+
+            var userNotificationMapping = _context.NotificationMappings.FirstOrDefault(x => x.NotificationId == notification.Id);
+
+            if (notificationModel == null)
+            {
+                throw new Exception("Notification cannot be found in database");
+            }
+
+            if (userNotificationMapping == null)
+            {
+                throw new Exception("Notification Mapping cannot be found in database");
+            }
+
+            _context.Entry(notificationModel).State = EntityState.Modified;
+            _context.Entry(userNotificationMapping).State = EntityState.Modified;
 
             try
             {
@@ -88,23 +120,6 @@ namespace Raspored.Repositories
             {
                 throw;
             }
-        }
-
-        private string GetUserIdFromFullName(string name)
-        {
-            string[] nameArray = name.Split();
-            string firstName = nameArray[0];
-            string lastName = nameArray[1];
-
-            var user = _context.Users
-                .FirstOrDefault(x => x.FirstName == firstName && x.LastName == lastName);
-
-            if (user == null)
-            {
-                throw new Exception($"User not found for sender: {name}");
-            }
-
-            return user.Id;
         }
 
         public bool IsConflictDetected(int notificationId)

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Raspored.CustomExceptions;
 using Raspored.Interfaces;
 using Raspored.Models;
+using Raspored.Models.DTOs;
 using System;
 
 namespace Raspored.Controllers
@@ -24,7 +25,7 @@ namespace Raspored.Controllers
         [Route("/notifications")]
         public IActionResult GetNotifications()
         {
-            return Ok(_notificationRepository.GetAllNotifications());
+            return Ok(_notificationRepository.GetNotifications());
         }
 
 
@@ -44,7 +45,7 @@ namespace Raspored.Controllers
 
         [HttpPost]
         [Route("/notifications")]
-        public IActionResult PostNotification([FromBody] Notification notification)
+        public IActionResult PostNotification([FromBody] NotificationDTO notification)
         {
             try
             {
@@ -73,7 +74,7 @@ namespace Raspored.Controllers
 
         [HttpPut]
         [Route("/notifications/{id}")]
-        public IActionResult PutNotification(int id, Notification notification)
+        public IActionResult PutNotification(int id, NotificationDTO notification)
         {
             if (!ModelState.IsValid)
             {

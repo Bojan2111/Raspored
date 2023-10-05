@@ -81,6 +81,7 @@ namespace Raspored
             services.AddAutoMapper(typeof(PersonalScheduleProfile));
             services.AddAutoMapper(typeof(TeamMemberProfile));
             services.AddAutoMapper(typeof(TeamProfile));
+            services.AddAutoMapper(typeof(NotificationProfile));
 
             services.AddScoped<IPersonalScheduleRepository, PersonalScheduleRepository>();
             services.AddScoped<ITeamRepository, TeamRepository>();
@@ -90,6 +91,7 @@ namespace Raspored
             services.AddScoped<IPositionRepository, PositionRepository>();
             services.AddScoped<IContractTypeRepository, ContractTypeRepository>();
             services.AddScoped<IFeatureRepository, FeatureRepository>();
+            services.AddScoped<INotificationRepository, NotificationRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
