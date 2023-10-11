@@ -20,19 +20,19 @@ namespace Raspored.Controllers
             _userManager = userManager;
         }
 
-        [HttpGet("/role-features/{featureTypeId}")]
-        public IActionResult ListFeatures(int featureTypeId)
+        [HttpGet("/role-features/")]
+        public IActionResult ListFeatures()
         {
             _ = _userManager.GetUserAsync(User);
 
             if (User.IsInRole("admin"))
             {
-                var features = _featureRepository.GetFeaturesForRole("admin", featureTypeId);
+                var features = _featureRepository.GetFeaturesForRole("admin");
                 return Ok(features);
             }
             else if (User.IsInRole("zaposleni"))
             {
-                var features = _featureRepository.GetFeaturesForRole("zaposleni", featureTypeId);
+                var features = _featureRepository.GetFeaturesForRole("zaposleni");
                 return Ok(features);
             }
             else

@@ -82,6 +82,7 @@ namespace Raspored
             services.AddAutoMapper(typeof(TeamMemberProfile));
             services.AddAutoMapper(typeof(TeamProfile));
             services.AddAutoMapper(typeof(NotificationProfile));
+            services.AddAutoMapper(typeof(FeaturesProfile));
 
             services.AddScoped<IPersonalScheduleRepository, PersonalScheduleRepository>();
             services.AddScoped<ITeamRepository, TeamRepository>();

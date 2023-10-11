@@ -1,10 +1,11 @@
 ﻿using Raspored.Models;
+using Raspored.Models.DTOs;
 using System.Collections.Generic;
 
 namespace Raspored.Interfaces
 {
     public interface IFeatureRepository
     {
-        IEnumerable<Feature> GetFeaturesForRole(string roleName, int featureTypeId);
+        IEnumerable<FeaturesDTO> GetFeaturesForRole(string roleName);
     }
 }
