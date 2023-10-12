@@ -4,6 +4,9 @@ namespace Raspored.Models.DTOs
 {
     public class FeaturesDTO
     {
-        public Dictionary<string, List<Feature>> MenuOptions { get; set; }
+        public int Id { get; set; }
+        public string Menu { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
     }
 }

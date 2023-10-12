@@ -2,7 +2,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Raspored.Interfaces;
+using Raspored.Models;
+using Raspored.Models.DTOs;
 using Raspored.Models.Login;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Raspored.Controllers
 {
@@ -24,21 +28,33 @@ namespace Raspored.Controllers
         public IActionResult ListFeatures()
         {
             _ = _userManager.GetUserAsync(User);
+            var features = new List<FeaturesDTO>();
 
             if (User.IsInRole("admin"))
             {
-                var features = _featureRepository.GetFeaturesForRole("admin");
-                return Ok(features);
+                features = _featureRepository.GetFeaturesForRole("admin").ToList();
             }
             else if (User.IsInRole("zaposleni"))
             {
-                var features = _featureRepository.GetFeaturesForRole("zaposleni");
-                return Ok(features);
+                features = _featureRepository.GetFeaturesForRole("zaposleni").ToList();
             }
             else
             {
                 return Unauthorized();
             }
+            var menuFeatureDictionary = features
+                .GroupBy(feature => feature.Menu)
+                .ToDictionary(
+                    group => group.Key,
+                    group => group.Select(feature => new Feature
+                    {
+                        Id = feature.Id,
+                        Name = feature.Name,
+                        Description = feature.Description
+                    })
+                );
+
+            return Ok(menuFeatureDictionary);
         }
     }
 }

@@ -8,7 +8,10 @@ namespace Raspored.Models.DTOs
         public FeaturesProfile()
         {
             CreateMap<RoleFeatureMapping, FeaturesDTO>()
-                .ForMember(dest => dest.MenuOptions, opt => opt.MapFrom<RoleFeatureMappingToFeaturesDtoResolver>());
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Feature.Id))
+                .ForMember(dest => dest.Menu, opt => opt.MapFrom(src => src.FeatureType.Name))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Feature.Name))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Feature.Description));
         }
     }
 }
